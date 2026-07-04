@@ -26,7 +26,7 @@ class SEARCH_BOOKS:
             database='library_management_system'
         )
         cursor=conn.cursor()
-        query="SELECT ID FROM BOOKS WHERE TITLE = %s "
+        query="SELECT ID FROM BOOKS WHERE TITLE = %s  "
         cursor.execute(query,(book_name,))
         result=cursor.fetchone()
         conn.close()
