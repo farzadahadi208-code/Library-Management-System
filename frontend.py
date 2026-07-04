@@ -1,5 +1,5 @@
 import sys
-import library_management_system
+import backend
 from PyQt6.QtWidgets import(
 QApplication,
 QWidget,
@@ -26,7 +26,7 @@ deleted_book=QLineEdit(window)
 
 def search():
     book_name=textbox.text()
-    status=library_management_system.SEARCH_BOOKS(book_name)
+    status=backend.SEARCH_BOOK.SEARCH(book_name)
 
     if status:
         message.information(
@@ -54,7 +54,7 @@ def add_book():
     shelf_book=shelf.text()
     status_book=status.text()
 
-    library_management_system.ADD_BOOKS(id_book,title_book,author_book_book,category_book,isbn_book,published_year_book,language_book,copies_total_book,copies_available_book,shelf_book,status_book)
+    backend.ADD_BOOK.ADD(id_book,title_book,author_book_book,category_book,isbn_book,published_year_book,language_book,copies_total_book,copies_available_book,shelf_book,status_book)
  
     message.information(
         window,
@@ -64,7 +64,7 @@ def add_book():
 
 def delete():
     book_name=deleted_book.text()
-    library_management_system.DELETE_BOOK(book_name)
+    backend.DELETE_BOOK.DELETE(book_name)
     message.warning(
         window,
         "deleted book",
@@ -93,7 +93,7 @@ table.setHorizontalHeaderLabels(
 )
 #show book
 table.resize(1150,450)
-rows=library_management_system.SHOW_BOOK()
+rows=backend.SHOW_BOOK.SHOW()
 for i,row in enumerate(rows):
     for j,value in enumerate(row):
         table.setItem(i,j,QTableWidgetItem(str(value)))
