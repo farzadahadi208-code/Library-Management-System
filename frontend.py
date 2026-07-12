@@ -94,6 +94,16 @@ add_book_status_label=QLabel(add_book_window)
 add_book_notes_input=QLineEdit(add_book_window)
 add_book_notes_label=QLabel(add_book_window)
 
+#DELETE CLASS OBJECTS
+show_delete_window=QPushButton(window)
+show_delete_window.setText("Delete Book")
+delete_window=QWidget()
+delete_button=QPushButton(delete_window)
+show_delete_window.resize(100,55)
+show_delete_window.move(220,650)
+delete_book_input=QLineEdit(delete_window)
+delete_book_label=QLabel(delete_window)
+
 def update_search_box(text):
     search_input_parmeter.setText(text)
 
@@ -336,8 +346,33 @@ class ADD_BOOK:
         add_book_notes_input.clear()
         backend.ADD_BOOKS.add(id,title,category,classification,author,transletor,shelf,row,binding,isbn,volumes,volume,copies_total,copies_available,publication,pages,unit_price,total_price,year,language,status,notes)
         
+class DELETE_BOOK:
+    def __init__(self):
+        delete_window.resize(200,100)
+        delete_window.show()
+        delete_book_input.resize(100,30)
+        delete_book_input.move(50,20)
+        delete_book_label.setText("Enter Title")
+        delete_book_label.move(50,5)
+        delete_book_label.show()
+        delete_button.resize(100,40)
+        delete_button.move(50,55)
+        delete_button.setText("Delete")
+    
+    def delete():
+        name_of_book=delete_book_input.text()
+        delete_book_input.clear()
+        backend.DELETE_BOOKS.delete(name_of_book)
 
+
+
+
+
+    
             
+
+    
+
 
 
 
@@ -347,6 +382,8 @@ show_search_button.clicked.connect(SEARCH_BOOK)
 search_button.clicked.connect(SEARCH_BOOK.find_book)
 show_add_button_window.clicked.connect(ADD_BOOK)
 add_button.clicked.connect(ADD_BOOK.add)
+show_delete_window.clicked.connect(DELETE_BOOK)
+delete_button.clicked.connect(DELETE_BOOK.delete)
 parameter_box.addItems([
     "ID",
     "TITLE",

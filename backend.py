@@ -41,8 +41,24 @@ class ADD_BOOK:
         cursor.execute(query,(ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,COPIES_TOTAL,COPIES_AVAILABLE,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,STATUS,NOTES,))
         conn.commit()
         conn.close()
+
+class DELETE_BOOK(SEARCH_BOOK):
+    def delete(self,deleted_book):
+        SEARCH_BOOKS=SEARCH_BOOK()
+        target=SEARCH_BOOKS.result("TITLE",deleted_book)
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query="DELETE FROM BOOK WHERE ID = ?"
+        id=target[0]
+        cursor.execute(query,(id,))
+        conn.commit()
+        conn.close()
+
+        
+
 SHOW_BOOKS=SHOW_BOOK()
 SEARCH_BOOKS=SEARCH_BOOK()
 ADD_BOOKS=ADD_BOOK()
+DELETE_BOOKS=DELETE_BOOK()
 
 
