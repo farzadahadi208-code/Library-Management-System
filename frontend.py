@@ -104,9 +104,102 @@ show_delete_window.move(220,650)
 delete_book_input=QLineEdit(delete_window)
 delete_book_label=QLabel(delete_window)
 
+#BORROW CLASS OBJECTS
+show_borrow_window=QPushButton(window)
+show_borrow_window.resize(100,55)
+show_borrow_window.move(330,650)
+show_borrow_window.setText("Borrow")
+borrow_window=QWidget()
+borrow_title_input=QLineEdit(borrow_window)
+borrow_title_label=QLabel(borrow_window)
+guaranty_button=QPushButton(borrow_window)
+guarantyOption=QWidget()
+passport_button=QPushButton(guarantyOption)
+identityCard_button=QPushButton(guarantyOption)
+
+#passport objects
+passport_window=QWidget()
+
+passport_Id_input=QLineEdit(passport_window)
+passport_Id_label=QLabel(passport_window)
+
+passport_name_input=QLineEdit(passport_window)
+passport_name_label=QLabel(passport_window)
+
+passport_nationality_input=QLineEdit(passport_window)
+passport_nationality_label=QLabel(passport_window)
+
+passport_date_of_birth_input=QLineEdit(passport_window)
+passport_date_of_birth_label=QLabel(passport_window)
+
+passport_place_of_birth_input=QLineEdit(passport_window)
+passport_place_of_birth_label=QLabel(passport_window)
+
+passport_date_of_issue_input=QLineEdit(passport_window)
+passport_date_of_issue_label=QLabel(passport_window)
+
+passport_date_of_expiry_input=QLineEdit(passport_window)
+passport_date_of_expiry_label=QLabel(passport_window)
+
+passport_date_of_receive_input=QLineEdit(passport_window)
+passport_date_of_receive_label=QLabel(passport_window)
+
+passport_date_of_return_input=QLineEdit(passport_window)
+passport_date_of_return_label=QLabel(passport_window)
+
+passport_book_input=QLineEdit(passport_window)
+passport_book_label=QLabel(passport_window)
+
+passport_confirmation_key=QPushButton(passport_window)
+
+#identitycard
+identityCard_window=QWidget()
+
+identitycard_id_input=QLineEdit(identityCard_window)
+identitycard_id_label=QLabel(identityCard_window)
+
+identitycard_name_input=QLineEdit(identityCard_window)
+identitycard_name_label=QLabel(identityCard_window)
+
+identitycard_nationality_input=QLineEdit(identityCard_window)
+identitycard_nationality_label=QLabel(identityCard_window)
+
+identitycard_date_of_birth_input=QLineEdit(identityCard_window)
+identitycard_date_of_birth_label=QLabel(identityCard_window)
+
+identitycard_place_of_birth_input=QLineEdit(identityCard_window)
+identitycard_place_of_birth_label=QLabel(identityCard_window)
+
+identitycard_date_of_issue_input=QLineEdit(identityCard_window)
+identitycard_date_of_issue_label=QLabel(identityCard_window)
+
+identitycard_date_of_expiry_input=QLineEdit(identityCard_window)
+identitycard_date_of_expiry_label=QLabel(identityCard_window)
+
+identitycard_gender_input=QLineEdit(identityCard_window)
+identitycard_gender_label=QLabel(identityCard_window)
+
+identitycard_date_of_receive_input=QLineEdit(identityCard_window)
+identitycard_date_of_receive_label=QLabel(identityCard_window)
+
+identitycard_date_of_return_input=QLineEdit(identityCard_window)
+identitycard_date_of_return_label=QLabel(identityCard_window)
+
+identitycard_book_input=QLineEdit(identityCard_window)
+identitycard_book_label=QLabel(identityCard_window)
+
+identitycard_conformiton_key=QPushButton(identityCard_window)
+
+
+
+
+
+
+
+
+
 def update_search_box(text):
     search_input_parmeter.setText(text)
-
 
 class SHOW_BOOK:
     def __init__(self):
@@ -363,15 +456,221 @@ class DELETE_BOOK:
         name_of_book=delete_book_input.text()
         delete_book_input.clear()
         backend.DELETE_BOOKS.delete(name_of_book)
-
-
-
-
-
     
-            
+class BORROW_BOOK:
+    def __init__(self):
+        borrow_window.resize(250,130)
+        borrow_window.show()
+        borrow_title_input.resize(100,30)
+        borrow_title_input.move(75,30)
+        borrow_title_label.setText("Please Enter Title")
+        borrow_title_label.move(75,10)
+        borrow_title_label.show()
+        guaranty_button.setText("Guranty")
+        guaranty_button.resize(100,30)
+        guaranty_button.move(75,70)
+        
 
+  
+    def status_of_book(self):
+        title=borrow_title_input.text()
+        backend.BORROW_BOOKS.status_of_book(title)
+        status_of_wanted_book=backend.BORROW_BOOKS.confermation
+        if status_of_wanted_book==0:
+            print("it is ok")
+            guarantyOption.resize(260,80)
+            guarantyOption.show()
+            passport_button.setText("Passport")
+            passport_button.resize(100,40)
+            passport_button.move(20,20)
+            identityCard_button.setText("Identity Card")
+            identityCard_button.resize(100,40)
+            identityCard_button.move(140,20)
+
+        if status_of_wanted_book==1:
+            print("we do not have this book")
+            return 1
+        if status_of_wanted_book==2:
+            print("we do not have enough book")
+            return 1
+        
+    def Passport(self):
+        passport_window.resize(360,300)
+        passport_window.show()
+        passport_Id_input.resize(100,30)
+        passport_Id_input.move(20,30)
+        passport_Id_label.setText("Passport_No")
+        passport_Id_label.move(20,10)
+        passport_Id_label.show()
+
+        passport_name_input.resize(100,30)
+        passport_name_input.move(20,90)
+        passport_name_label.setText("Name")
+        passport_name_label.move(20,70)
+        passport_name_label.show()
+
+        passport_nationality_input.resize(100,30)
+        passport_nationality_input.move(20,150)
+        passport_nationality_label.setText("Nationality")
+        passport_nationality_label.move(20,130)
+        passport_nationality_label.show()
+
+#**********************************************************************
+        passport_date_of_birth_input.resize(100,30)
+        passport_date_of_birth_input.move(130,30)
+        passport_date_of_birth_label.setText("Data Of Birth")
+        passport_date_of_birth_label.move(130,10)
+        passport_date_of_birth_label.show()
+
+        passport_place_of_birth_input.resize(100,30)
+        passport_place_of_birth_input.move(130,90)
+        passport_place_of_birth_label.setText("Birth Of Place")
+        passport_place_of_birth_label.move(130,70)
+        passport_place_of_birth_label.show()
+        
+        
+        passport_date_of_issue_input.resize(100,30)
+        passport_date_of_issue_input.move(130,150)
+        passport_date_of_issue_label.setText("Data Of Issue")
+        passport_date_of_issue_label.move(130,130)
+        passport_date_of_issue_label.show()
+
+        passport_book_input.resize(100,30)
+        passport_book_input.move(130,210)
+        passport_book_label.setText("Name Of Book")
+        passport_book_label.move(130,190)
+        passport_book_label.show()
+#****************************************************************
+
+        passport_date_of_receive_input.resize(100,30)
+        passport_date_of_receive_input.move(240,30)
+        passport_date_of_receive_label.setText("Data Of Receive")
+        passport_date_of_receive_label.move(240,10)
+        passport_date_of_receive_label.show()
+
+        passport_date_of_return_input.resize(100,30)
+        passport_date_of_return_input.move(240,90)
+        passport_date_of_return_label.setText("Data Of Return")
+        passport_date_of_return_label.move(240,70)
+        passport_date_of_return_label.show()
+
+        passport_date_of_expiry_input.resize(100,30)
+        passport_date_of_expiry_input.move(240,150)
+        passport_date_of_expiry_label.setText("Date Of Expiry")
+        passport_date_of_expiry_label.move(240,130)
+        passport_date_of_expiry_label.show()
+
+        passport_confirmation_key.resize(330,30)
+        passport_confirmation_key.move(20,250)
+        passport_confirmation_key.setText("Confirm The Information")
     
+    def savePassportInfo():
+        id=passport_Id_input.text()
+        name=passport_name_input.text()
+        nationality=passport_nationality_input.text()
+        date_of_birth=passport_date_of_birth_input.text()
+        place_of_birth=passport_place_of_birth_input.text()
+        date_of_issue=passport_date_of_issue_input.text()
+        date_of_expiry=passport_date_of_expiry_input.text()
+        date_of_receive=passport_date_of_receive_input.text()
+        date_of_return=passport_date_of_return_input.text()
+        book=passport_book_input.text()
+
+        set_information_to_passport_table=backend.BORROW_BOOKS.passportGuarante(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,date_of_receive,date_of_return,book)
+        
+
+    def identiyCard(self):
+        identityCard_window.resize(400,320)
+        identityCard_window.show()
+
+        identitycard_id_input.resize(100,30)
+        identitycard_id_input.move(20,30)
+        identitycard_id_label.setText("ID_Number")
+        identitycard_id_label.move(20,10)
+        identitycard_id_label.show()
+
+        identitycard_name_input.resize(100,30)
+        identitycard_name_input.move(20,90)
+        identitycard_name_label.setText("Full Name")
+        identitycard_name_label.move(20,70)
+        identitycard_name_label.show()
+
+        identitycard_nationality_input.resize(100,30)
+        identitycard_nationality_input.move(20,150)
+        identitycard_nationality_label.setText("Nationality")
+        identitycard_nationality_label.move(20,130)
+        identitycard_nationality_label.show()
+
+        identitycard_gender_input.resize(100,30)
+        identitycard_gender_input.move(20,210)
+        identitycard_gender_label.setText("Gender")
+        identitycard_gender_label.move(20,190)
+        identitycard_gender_label.show()
+        #**************************************************
+        
+        identitycard_date_of_birth_input.resize(100,30)
+        identitycard_date_of_birth_input.move(130,30)
+        identitycard_date_of_birth_label.setText("Date Of Birth")
+        identitycard_date_of_birth_label.move(130,10)
+        identitycard_date_of_birth_label.show()
+
+        identitycard_place_of_birth_input.resize(100,30)
+        identitycard_place_of_birth_input.move(130,90)
+        identitycard_place_of_birth_label.setText("Place Of Birth")
+        identitycard_place_of_birth_label.move(130,70)
+        identitycard_place_of_birth_label.show()
+
+        identitycard_date_of_issue_input.resize(100,30)
+        identitycard_date_of_issue_input.move(130,150)
+        identitycard_date_of_issue_label.setText("Date Of Issue")
+        identitycard_date_of_issue_label.move(130,130)
+        identitycard_date_of_issue_label.show()
+
+        identitycard_date_of_expiry_input.resize(100,30)
+        identitycard_date_of_expiry_input.move(130,210)
+        identitycard_date_of_expiry_label.setText("Date Of Expiry")
+        identitycard_date_of_expiry_label.move(130,190)
+        identitycard_date_of_expiry_label.show()
+        #******************************************************
+
+        identitycard_date_of_receive_input.resize(100,30)
+        identitycard_date_of_receive_input.move(240,30)
+        identitycard_date_of_receive_label.setText("Date Of Receive")
+        identitycard_date_of_receive_label.move(240,10)
+        identitycard_date_of_receive_label.show()
+
+        identitycard_date_of_return_input.resize(100,30)
+        identitycard_date_of_return_input.move(240,90)
+        identitycard_date_of_return_label.setText("Date Of Return")
+        identitycard_date_of_return_label.move(240,70)
+        identitycard_date_of_return_label.show()
+
+        identitycard_book_input.resize(100,30)
+        identitycard_book_input.move(240,150)
+        identitycard_book_label.setText("Book")
+        identitycard_book_label.move(240,130)
+        identitycard_book_label.show()
+
+        identitycard_conformiton_key.resize(340,30)
+        identitycard_conformiton_key.move(20,250)
+        identitycard_conformiton_key.setText("Confirm The Information")
+
+    def saveIdentityCardInfo(self):
+        id=identitycard_id_input.text()
+        name=identitycard_name_input.text()
+        nationality=identitycard_nationality_input.text()
+        date_of_birth=identitycard_date_of_birth_input.text()
+        place_of_birth=identitycard_place_of_birth_input.text()
+        date_of_issue=identitycard_date_of_issue_input.text()
+        date_of_expiry=identitycard_date_of_expiry_input.text()
+        gender=identitycard_gender_input.text()
+        date_of_receive=identitycard_date_of_receive_input.text()
+        date_of_return=identitycard_date_of_return_input.text()
+        book=identitycard_book_input.text()
+        set_information_to_identityCard_table=backend.BORROW_BOOKS.identityCardGuarantuy(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,gender,date_of_receive,date_of_return,book)
+
+
+
 
 
 
@@ -384,6 +683,14 @@ show_add_button_window.clicked.connect(ADD_BOOK)
 add_button.clicked.connect(ADD_BOOK.add)
 show_delete_window.clicked.connect(DELETE_BOOK)
 delete_button.clicked.connect(DELETE_BOOK.delete)
+
+show_borrow_window.clicked.connect(BORROW_BOOK)
+guaranty_button.clicked.connect(BORROW_BOOK.status_of_book)
+passport_button.clicked.connect(BORROW_BOOK.Passport)
+identityCard_button.clicked.connect(BORROW_BOOK.identiyCard)
+passport_confirmation_key.clicked.connect(BORROW_BOOK.savePassportInfo)
+identitycard_conformiton_key.clicked.connect(BORROW_BOOK.saveIdentityCardInfo)
+
 parameter_box.addItems([
     "ID",
     "TITLE",
@@ -413,7 +720,6 @@ parameter_box.resize(165,30)
 parameter_box.move(20,20)
 parameter_box.currentTextChanged.connect(update_search_box)
 SHOW_BOOKS=SHOW_BOOK()
-
 
 
 
