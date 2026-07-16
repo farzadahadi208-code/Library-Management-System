@@ -8,11 +8,12 @@ window=QWidget()
 table=QTableWidget(window)
 search_window=QWidget()
 parameter_box=QComboBox(search_window)
+
 #SEARCH CLASS OBJECTS
 show_search_button=QPushButton(window)
 show_search_button.move(0,650)
 show_search_button.resize(100,55)
-show_search_button.setText("Search")
+show_search_button.setText("Search Book")
 search_button=QPushButton(search_window)
 search__parameter_label=QLabel(search_window)
 search__name_label=QLabel(search_window)
@@ -108,7 +109,7 @@ delete_book_label=QLabel(delete_window)
 show_borrow_window=QPushButton(window)
 show_borrow_window.resize(100,55)
 show_borrow_window.move(330,650)
-show_borrow_window.setText("Borrow")
+show_borrow_window.setText("Borrow Book")
 borrow_window=QWidget()
 borrow_title_input=QLineEdit(borrow_window)
 borrow_title_label=QLabel(borrow_window)
@@ -190,17 +191,36 @@ identitycard_book_label=QLabel(identityCard_window)
 
 identitycard_conformiton_key=QPushButton(identityCard_window)
 
+#RETURN CLASS OBJECTS
+show_return_window=QPushButton(window)
+show_return_window.resize(100,55)
+show_return_window.move(440,650)
+show_return_window.setText("Return Book")
+return_window=QWidget()
 
+return_book_name_input=QLineEdit(return_window)
+return_book_name_label= QLabel(return_window)
 
+return_Confirmation_button=QPushButton(return_window)
+return_Confirmation_button.setText("Ok")
 
+show_window_option_select_passport_idetitycard=QWidget()
+parameter_box1_return_window=QComboBox(show_window_option_select_passport_idetitycard)
+return_parmeter_input=QLineEdit(show_window_option_select_passport_idetitycard)
+return_parmeter_label=QLabel(show_window_option_select_passport_idetitycard)
 
+return_id_input=QLineEdit(show_window_option_select_passport_idetitycard)
+return_id_label=QLabel(show_window_option_select_passport_idetitycard)
 
+return_Confirmation_detail_button=QPushButton(show_window_option_select_passport_idetitycard)
 
 
 
 def update_search_box(text):
     search_input_parmeter.setText(text)
 
+def udpdate_return_parameter_box(text):
+    return_parmeter_input.setText(text)
 class SHOW_BOOK:
     def __init__(self):
         #creating table
@@ -476,7 +496,6 @@ class BORROW_BOOK:
         backend.BORROW_BOOKS.status_of_book(title)
         status_of_wanted_book=backend.BORROW_BOOKS.confermation
         if status_of_wanted_book==0:
-            print("it is ok")
             guarantyOption.resize(260,80)
             guarantyOption.show()
             passport_button.setText("Passport")
@@ -669,6 +688,58 @@ class BORROW_BOOK:
         set_information_to_identityCard_table=backend.BORROW_BOOKS.identityCardGuarantuy(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,gender,date_of_receive,date_of_return,book)
 
 
+class RETURN_BOOK:
+    def receive_book(self):
+        return_window.resize(250,130)
+        return_window.show()
+        
+        return_book_name_input.resize(100,30)
+        return_book_name_input.move(75,40)
+        return_book_name_label.setText("Enter Name Of Book")
+        return_book_name_label.move(75,20)
+        return_book_name_label.show()
+
+        return_Confirmation_button.resize(100,30)
+        return_Confirmation_button.move(75,90)
+
+    def show_window_option_choice_passport_idetitycard(self):
+        show_window_option_select_passport_idetitycard.resize(300,150)
+        show_window_option_select_passport_idetitycard.show()
+
+
+        return_parmeter_input.resize(100,30)
+        return_parmeter_input.move(20,30)
+        return_parmeter_label.setText("Choice Parameter")
+        return_parmeter_label.move(20,10)
+        return_parmeter_label.show()
+
+        return_id_input.resize(150,30)
+        return_id_input.move(140,30)
+        return_id_label.setText("Passport ID/Identity Number")
+        return_id_label.move(140,10)
+        return_id_label.show()
+
+        return_Confirmation_detail_button.resize(100,40)
+        return_Confirmation_detail_button.move(100,80)
+        return_Confirmation_detail_button.setText("Confirm Detail")
+
+
+    def received_book(self):
+        book_name=return_book_name_input.text()
+        id=return_id_input.text()
+        guaranty=return_parmeter_input.text()
+        backend.RETURN_BOOKS.recive_book(book_name,id,guaranty)
+        
+
+        
+        
+
+        
+        
+
+
+
+
 #MAIN
 
 show_search_button.clicked.connect(SEARCH_BOOK)
@@ -685,6 +756,9 @@ identityCard_button.clicked.connect(BORROW_BOOK.identiyCard)
 passport_confirmation_key.clicked.connect(BORROW_BOOK.savePassportInfo)
 identitycard_conformiton_key.clicked.connect(BORROW_BOOK.saveIdentityCardInfo)
 
+show_return_window.clicked.connect(RETURN_BOOK.receive_book)
+return_Confirmation_button.clicked.connect(RETURN_BOOK.show_window_option_choice_passport_idetitycard)
+return_Confirmation_detail_button.clicked.connect(RETURN_BOOK.received_book)
 parameter_box.addItems([
     "ID",
     "TITLE",
@@ -710,9 +784,22 @@ parameter_box.addItems([
     "NOTES"
     
 ])
+parameter_box.currentTextChanged.connect(update_search_box)
 parameter_box.resize(165,30)
 parameter_box.move(20,20)
-parameter_box.currentTextChanged.connect(update_search_box)
+
+parameter_box1_return_window.resize(115,30)
+parameter_box1_return_window.move(20,30)
+parameter_box1_return_window.addItems(
+    [
+        "Passport",
+        "IdentityCard"
+    ]
+)
+parameter_box1_return_window.currentTextChanged.connect(udpdate_return_parameter_box)
+
+
+
 SHOW_BOOKS=SHOW_BOOK()
 
 

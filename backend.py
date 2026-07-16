@@ -106,8 +106,27 @@ class BORROW_BOOK(SEARCH_BOOK):
         conn.close()
 
    
+class RETURN_BOOK:
+    def recive_book(self,book_name,id,guaranty):
+        #id is the id number of Identity card or the Passport_no
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        counter=0
+        if guaranty=="IdentityCard":
+            cursor.execute
+            query=f"UPDATE IDENTITYCARD SET IS_RECEIVED='YES' WHERE ID_NUMBER= ? AND BOOK=?"
+            cursor.execute(query,(id,book_name,))
+            conn.commit()
+            conn.close()
+            return 1
+        if guaranty=="Passport":
+            query=f"UPDATE PASSPORT SET IS_RECEIVED ='YES' WHERE Passport_NO =? AND BOOK= ?"
+            cursor.execute(query,(id,book_name,))
+            conn.commit()
+            conn.close()
+            return 1
 
-
+        
 
     
 
@@ -118,6 +137,7 @@ SEARCH_BOOKS=SEARCH_BOOK()
 ADD_BOOKS=ADD_BOOK()
 DELETE_BOOKS=DELETE_BOOK()
 BORROW_BOOKS=BORROW_BOOK()
+RETURN_BOOKS=RETURN_BOOK()
 
 
 
