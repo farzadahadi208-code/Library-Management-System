@@ -393,8 +393,7 @@ class ADD_BOOK:
 
 
     def add(self):
-        last_row=backend.last_row()
-        id=last_row[0]+1
+        id=backend.last_row("BOOK")
         title=add_book_title_input.text()
         add_book_title_input.clear()
         category=add_book_category_input.text()
@@ -668,11 +667,6 @@ class BORROW_BOOK:
         date_of_return=identitycard_date_of_return_input.text()
         book=identitycard_book_input.text()
         set_information_to_identityCard_table=backend.BORROW_BOOKS.identityCardGuarantuy(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,gender,date_of_receive,date_of_return,book)
-
-
-
-
-
 
 
 #MAIN

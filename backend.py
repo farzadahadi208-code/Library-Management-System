@@ -1,11 +1,16 @@
 import sqlite3
-def last_row():
+def last_row(table):
     last=sqlite3.connect("Library Management System.db")
     cursor=last.cursor()
-    cursor.execute(f"SELECT ID FROM BOOK WHERE ID >1 ORDER BY ID DESC LIMIT 1 ")
+    cursor.execute(f"SELECT ID FROM {table} ORDER BY ID DESC LIMIT 1 ")
     res=cursor.fetchone()
+    new_id=0
+    if res is None:
+        new_id=1
+    else:
+        new_id=res[0]+1
     last.close()
-    return res
+    return new_id
 
 class SHOW_BOOK:
     def disply_book(self):
@@ -76,28 +81,32 @@ class BORROW_BOOK(SEARCH_BOOK):
         else:
             self.confermation=2
             return 1
-        
+    
     def passportGuarante(self,passport_no,fullname,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,DATE_OF_RECEIVE,DATE_OF_RETURN,Book):
-
+        is_received="No"
+        id=last_row("PASSPORT")
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
-        query="""INSERT INTO passportinfo (passport_NO,FULL_NAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?) """
-        cursor.execute(query,(passport_no,fullname,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,))
+        query="""INSERT INTO PASSPORT (id,passport_NO,FULL_NAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK,IS_RECEIVED)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """
+        cursor.execute(query,(id,passport_no,fullname,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,is_received,))
         conn.commit()
         conn.close()
 
     def identityCardGuarantuy(self,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,Book):
+        id=last_row("IDENTITYCARD")
+        is_received="No"
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
-        query="""INSERT INTO IDENTITYCARD (ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)
+        query="""INSERT INTO IDENTITYCARD (id,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK,IS_RECEIVED)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         """
-        cursor.execute(query,(ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,))
+        cursor.execute(query,(id,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,is_received,))
         conn.commit()
         conn.close()
 
    
+
 
 
     
