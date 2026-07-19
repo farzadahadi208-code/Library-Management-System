@@ -126,7 +126,37 @@ class RETURN_BOOK:
             conn.close()
             return 1
 
-        
+class EDIT_BOOK(SEARCH_BOOK):
+    def edit_book(self,name,parameter,isbn,new_value):
+        SEARCH_BOOKS=SEARCH_BOOK()
+        status_of_book=SEARCH_BOOKS.result("TITLE",name)
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query=f"UPDATE BOOK SET {parameter} = ? WHERE TITLE = ?"
+        query1=f"UPDATE BOOK SET {parameter} = ? WHERE ISBN = ?"
+        if status_of_book is None:
+            print("this book does not exist")
+            return 1
+        elif isbn=="":
+            cursor.execute(query,(new_value,name,))
+        else:
+            cursor.execute(query1,(new_value,isbn,))
+        conn.commit()
+        conn.close()
+
+
+class SORT_BOOK:
+    def sort_book(self,sorted_parameter,method=""):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query=f"SELECT * FROM BOOK ORDER BY {sorted_parameter}"
+        query1=f"SELECT * FROM BOOK ORDER BY {sorted_parameter} DESC"
+        if method=="DESC":
+            cursor.execute(query1)
+        else:
+            cursor.execute(query)
+        sorted_table=cursor.fetchall()
+        return sorted_table
 
     
 
@@ -138,6 +168,8 @@ ADD_BOOKS=ADD_BOOK()
 DELETE_BOOKS=DELETE_BOOK()
 BORROW_BOOKS=BORROW_BOOK()
 RETURN_BOOKS=RETURN_BOOK()
+EDIT_BOOKS=EDIT_BOOK()
+SORT_BOOKS=SORT_BOOK()
 
 
 

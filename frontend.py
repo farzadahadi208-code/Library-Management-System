@@ -214,8 +214,33 @@ return_id_label=QLabel(show_window_option_select_passport_idetitycard)
 
 return_Confirmation_detail_button=QPushButton(show_window_option_select_passport_idetitycard)
 
+#EDIT CALSS OBJECTS
+show_edit_window=QPushButton(window)
+show_edit_window.setText("Edit Book")
+show_edit_window.resize(100,55)
+show_edit_window.move(550,650)
+
+edit_window=QWidget()
+edit_box_parameter_options=QComboBox(edit_window)
+edit_name_of_book_input=QLineEdit(edit_window)
+edit_name_of_book_lable=QLabel(edit_window)
+
+edit_parameter_input=QLineEdit(edit_window)
+edit_parameter_lable=QLabel(edit_window)
+
+edit_isbn_input=QLineEdit(edit_window)
+edit_isbn_lable=QLabel(edit_window)
+
+edit_new_value_input=QLineEdit(edit_window)
+edit_new_value_lable=QLabel(edit_window)
+
+edit_confirmation_button=QPushButton(edit_window)
+
+#SORT CLASS OBJECTS
 
 
+def update_edit_box_parameter_options(text):
+    edit_parameter_input.setText(text)
 def update_search_box(text):
     search_input_parmeter.setText(text)
 
@@ -731,11 +756,46 @@ class RETURN_BOOK:
         backend.RETURN_BOOKS.recive_book(book_name,id,guaranty)
         
 
-        
-        
 
-        
-        
+class EDIT_BOOK:
+    def edit_book(self):
+        edit_window.resize(260,190)
+        edit_window.show()
+
+        edit_name_of_book_input.resize(100,30)
+        edit_name_of_book_input.move(20,30)
+        edit_name_of_book_lable.setText("Enter Name Of Book")
+        edit_name_of_book_lable.move(20,10)
+        edit_name_of_book_lable.show()
+
+        edit_parameter_input.resize(100,30)
+        edit_parameter_input.move(140,30)
+        edit_parameter_lable.setText("Enter Parameter")
+        edit_parameter_lable.move(140,10)
+        edit_parameter_lable.show()
+
+        edit_isbn_input.resize(100,30)
+        edit_isbn_input.move(20,90)
+        edit_isbn_lable.setText("Enter isbn")
+        edit_isbn_lable.move(20,70)
+        edit_isbn_lable.show()
+
+        edit_new_value_input.resize(100,30)
+        edit_new_value_input.move(140,90)
+        edit_new_value_lable.setText("Enter New Value")
+        edit_new_value_lable.move(140,70)
+        edit_new_value_lable.show()
+
+        edit_confirmation_button.resize(100,40)
+        edit_confirmation_button.setText("Confirm Detail")
+        edit_confirmation_button.move(75,130)
+
+    def implement_edition(self):
+        edit_name_of_book=edit_name_of_book_input.text()
+        parameter=edit_parameter_input.text()
+        isbn=edit_isbn_input.text()
+        new_value=edit_new_value_input.text()
+        backend.EDIT_BOOKS.edit_book(edit_name_of_book,parameter,isbn,new_value)
 
 
 
@@ -759,6 +819,9 @@ identitycard_conformiton_key.clicked.connect(BORROW_BOOK.saveIdentityCardInfo)
 show_return_window.clicked.connect(RETURN_BOOK.receive_book)
 return_Confirmation_button.clicked.connect(RETURN_BOOK.show_window_option_choice_passport_idetitycard)
 return_Confirmation_detail_button.clicked.connect(RETURN_BOOK.received_book)
+
+show_edit_window.clicked.connect(EDIT_BOOK.edit_book)
+edit_confirmation_button.clicked.connect(EDIT_BOOK.implement_edition)
 parameter_box.addItems([
     "ID",
     "TITLE",
@@ -798,25 +861,36 @@ parameter_box1_return_window.addItems(
 )
 parameter_box1_return_window.currentTextChanged.connect(udpdate_return_parameter_box)
 
-
+edit_box_parameter_options.resize(115,30)
+edit_box_parameter_options.move(140,30)
+edit_box_parameter_options.addItems(
+    [
+    "TITLE",
+    "CATEGORY",
+    "CLASSIFICATION",
+    "AUTHOR",
+    "TRANSLATOR",
+    "SHELF",
+    "ROW",
+    "BINDING",
+    "ISBN",
+    "NUMBER OF VOLUMES",
+    "VOLUME",
+    "COPIES_TOTAL",
+    "COPIES_AVAILABLE",
+    "PUBLICATION INFORMATION",
+    "PAGES",
+    "UNIT PRICE",
+    "TOTAL PRICE",
+    "PUBLISHED YEAR",
+    "LANGUAGE",
+    "STATUS",
+    "NOTES"
+    ]
+)
+edit_box_parameter_options.currentTextChanged.connect(update_edit_box_parameter_options)
 
 SHOW_BOOKS=SHOW_BOOK()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
