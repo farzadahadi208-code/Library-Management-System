@@ -157,6 +157,7 @@ class SORT_BOOK:
             cursor.execute(query)
         sorted_table=cursor.fetchall()
         return sorted_table
+    
 
     
 

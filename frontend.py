@@ -237,10 +237,40 @@ edit_new_value_lable=QLabel(edit_window)
 edit_confirmation_button=QPushButton(edit_window)
 
 #SORT CLASS OBJECTS
+show_sort_window=QPushButton(window)
+show_sort_window.setText("Sort Books")
+show_sort_window.resize(100,55)
+show_sort_window.move(660,650)
 
+sort_window=QWidget()
+sort_sorted_parameter_box_options=QComboBox(sort_window)
+sort_sorted_parameter_box_options.resize(115,30)
+sort_sorted_parameter_box_options.move(20,30)
+sort_method_box_options=QComboBox(sort_window)
+sort_method_box_options.resize(115,30)
+sort_method_box_options.move(140,30)
+
+sort_sorted_parameter_input=QLineEdit(sort_window)
+sort_sorted_parameter_label=QLabel(sort_window)
+
+sort_method_input=QLineEdit(sort_window)
+sort_method_label=QLabel(sort_window)
+
+sort_confirmation_butthon=QPushButton(sort_window)
+
+sorted_table_window=QWidget()
+sorted_table=QTableWidget(sorted_table_window)
+
+
+def update_sort_method_box_options(text):
+    sort_method_input.setText(text)
+
+def update_sort_sorted_parameter_box_options(text):
+    sort_sorted_parameter_input.setText(text)
 
 def update_edit_box_parameter_options(text):
     edit_parameter_input.setText(text)
+
 def update_search_box(text):
     search_input_parmeter.setText(text)
 
@@ -799,6 +829,45 @@ class EDIT_BOOK:
 
 
 
+class SORTED_BOOK:
+    def sort_book(self):
+        sort_window.resize(270,130)
+        sort_window.show()
+
+        sort_sorted_parameter_input.resize(100,30)
+        sort_sorted_parameter_input.move(20,30)
+        sort_sorted_parameter_label.setText("Sorted Parametr")
+        sort_sorted_parameter_label.move(20,10)
+        sort_sorted_parameter_label.show()
+
+        sort_method_input.resize(100,30)
+        sort_method_input.move(140,30)
+        sort_method_label.setText("Method")
+        sort_method_label.move(140,10)
+        sort_method_label.show()
+
+        sort_confirmation_butthon.resize(100,40)
+        sort_confirmation_butthon.move(75,70)
+        sort_confirmation_butthon.setText("Sort")
+    def implement_sort(self):
+        sorted_parameter=sort_sorted_parameter_input.text()
+        method=sort_method_input.text()
+        table_is_sorted=backend.SORT_BOOKS.sort_book(sorted_parameter,method)
+        sorted_table_window.resize(1000,500)
+        sorted_table_window.show()
+        sorted_table.resize(1000,500)
+        sorted_table.setColumnCount(22)
+        sorted_table.setRowCount(10000)
+        sorted_table.setHorizontalHeaderLabels(
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","COPIES_TOTAL","COPIES_AVAILABLE","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","STATUS","NOTES"]
+        )
+        for i,row in enumerate(table_is_sorted):
+            for j,value in enumerate(row):
+                sorted_table.setItem(i,j,QTableWidgetItem(str(value)))
+        sorted_table.resizeColumnsToContents()
+
+
+
 
 #MAIN
 
@@ -822,6 +891,9 @@ return_Confirmation_detail_button.clicked.connect(RETURN_BOOK.received_book)
 
 show_edit_window.clicked.connect(EDIT_BOOK.edit_book)
 edit_confirmation_button.clicked.connect(EDIT_BOOK.implement_edition)
+
+show_sort_window.clicked.connect(SORTED_BOOK.sort_book)
+sort_confirmation_butthon.clicked.connect(SORTED_BOOK.implement_sort)
 parameter_box.addItems([
     "ID",
     "TITLE",
@@ -860,11 +932,9 @@ parameter_box1_return_window.addItems(
     ]
 )
 parameter_box1_return_window.currentTextChanged.connect(udpdate_return_parameter_box)
-
-edit_box_parameter_options.resize(115,30)
-edit_box_parameter_options.move(140,30)
-edit_box_parameter_options.addItems(
+sort_sorted_parameter_box_options.addItems(
     [
+    "ID",
     "TITLE",
     "CATEGORY",
     "CLASSIFICATION",
@@ -884,12 +954,19 @@ edit_box_parameter_options.addItems(
     "TOTAL PRICE",
     "PUBLISHED YEAR",
     "LANGUAGE",
-    "STATUS",
-    "NOTES"
+    "STATUS"
     ]
 )
-edit_box_parameter_options.currentTextChanged.connect(update_edit_box_parameter_options)
 
+sort_sorted_parameter_box_options.currentTextChanged.connect(update_sort_sorted_parameter_box_options)
+
+sort_method_box_options.addItems(
+    [
+        "ASCD",
+        "DESC"
+    ]
+)
+sort_method_box_options.currentTextChanged.connect(update_sort_method_box_options)
 SHOW_BOOKS=SHOW_BOOK()
 
 
