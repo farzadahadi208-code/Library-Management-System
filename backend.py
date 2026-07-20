@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 def last_row(table):
     last=sqlite3.connect("Library Management System.db")
     cursor=last.cursor()
@@ -157,9 +158,20 @@ class SORT_BOOK:
             cursor.execute(query)
         sorted_table=cursor.fetchall()
         return sorted_table
-    
 
-    
+class PATRON:
+    def parton(self,name,father_name,duty,university,semester,major,book):
+        id=last_row("PATRON")
+        date=str(datetime.now().date())
+        time_of_receive=str(datetime.now().time())
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query="""INSERT INTO PATRON (ID,NAME,FATHER_NAME,DUTY,UNIVERSITY,SEMESTER,MAJOR,DATE,BOOK,TIME_OF_RECEIVE)
+        VALUES (?,?,?,?,?,?,?,?,?,?)
+        """
+        cursor.execute(query,(id,name,father_name,duty,university,semester,major,book,date,time_of_receive,))
+        conn.commit()
+        conn.close()
 
 
 
@@ -171,6 +183,8 @@ BORROW_BOOKS=BORROW_BOOK()
 RETURN_BOOKS=RETURN_BOOK()
 EDIT_BOOKS=EDIT_BOOK()
 SORT_BOOKS=SORT_BOOK()
+PARTONS=PATRON()
+
 
 
 

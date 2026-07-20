@@ -241,7 +241,6 @@ show_sort_window=QPushButton(window)
 show_sort_window.setText("Sort Books")
 show_sort_window.resize(100,55)
 show_sort_window.move(660,650)
-
 sort_window=QWidget()
 sort_sorted_parameter_box_options=QComboBox(sort_window)
 sort_sorted_parameter_box_options.resize(115,30)
@@ -249,18 +248,43 @@ sort_sorted_parameter_box_options.move(20,30)
 sort_method_box_options=QComboBox(sort_window)
 sort_method_box_options.resize(115,30)
 sort_method_box_options.move(140,30)
-
 sort_sorted_parameter_input=QLineEdit(sort_window)
 sort_sorted_parameter_label=QLabel(sort_window)
-
 sort_method_input=QLineEdit(sort_window)
 sort_method_label=QLabel(sort_window)
-
 sort_confirmation_butthon=QPushButton(sort_window)
-
 sorted_table_window=QWidget()
 sorted_table=QTableWidget(sorted_table_window)
 
+#PATRON CALSS OBJECTS
+show_patron_window=QPushButton(window)
+show_patron_window.setText("PATRON")
+show_patron_window.resize(100,55)
+show_patron_window.move(770,650)
+patron_window=QWidget()
+
+patron_name_input=QLineEdit(patron_window)
+patron_name_label=QLabel(patron_window)
+
+patron_father_name_input=QLineEdit(patron_window)
+patron_father_name_label=QLabel(patron_window)
+
+patron_duty_input=QLineEdit(patron_window)
+patron_duty_label=QLabel(patron_window)
+
+patron_university_input=QLineEdit(patron_window)
+patron_university_label=QLabel(patron_window)
+
+patron_semester_input=QLineEdit(patron_window)
+patron_semester_label=QLabel(patron_window)
+
+patron_major_input=QLineEdit(patron_window)
+patron_major_label=QLabel(patron_window)
+
+patron_book_input=QLineEdit(patron_window)
+patron_book_label=QLabel(patron_window)
+
+patron_confirmation_button=QPushButton(patron_window)
 
 def update_sort_method_box_options(text):
     sort_method_input.setText(text)
@@ -867,7 +891,66 @@ class SORTED_BOOK:
         sorted_table.resizeColumnsToContents()
 
 
+class PATRON:
+    def patron(self):
+        patron_window.resize(250,260)
+        patron_window.show()
 
+        patron_name_input.resize(100,30)
+        patron_name_input.move(20,30)
+        patron_name_label.setText("Name")
+        patron_name_label.move(20,10)
+        patron_name_label.show()
+
+        patron_father_name_input.resize(100,30)
+        patron_father_name_input.move(20,80)
+        patron_father_name_label.setText("Father`s Name")
+        patron_father_name_label.move(20,60)
+        patron_father_name_label.show()
+
+        patron_duty_input.resize(100,30)
+        patron_duty_input.move(20,130)
+        patron_duty_label.setText("Duty")
+        patron_duty_label.move(20,110)
+        patron_duty_label.show()
+
+        patron_book_input.resize(100,30)
+        patron_book_input.move(20,180)
+        patron_book_label.setText("Book")
+        patron_book_label.move(20,160)
+        patron_book_label.show()
+#**********************************************
+        patron_university_input.resize(100,30)
+        patron_university_input.move(130,30)
+        patron_university_label.setText("University")
+        patron_university_label.move(130,10)
+        patron_university_label.show()
+
+        patron_semester_input.resize(100,30)
+        patron_semester_input.move(130,80)
+        patron_semester_label.setText("Semester")
+        patron_semester_label.move(130,60)
+        patron_semester_label.show()
+
+        patron_major_input.resize(100,30)
+        patron_major_input.move(130,130)
+        patron_major_label.setText("Major")
+        patron_major_label.move(130,110)
+        patron_major_label.show()
+        patron_confirmation_button.setText("Confirm Informations")
+        patron_confirmation_button.resize(210,30)
+        patron_confirmation_button.move(20,220)
+
+    def saveInformationsOfPatrons(self):
+        name=patron_name_input.text()
+        father_name=patron_father_name_input.text()
+        duty=patron_duty_input.text()
+        university=patron_university_input.text()
+        semester=patron_semester_input.text()
+        major=patron_major_input.text()
+        book=patron_book_input.text()
+        backend.PARTONS.parton(name,father_name,duty,university,semester,major,book)
+    
 
 #MAIN
 
@@ -894,6 +977,9 @@ edit_confirmation_button.clicked.connect(EDIT_BOOK.implement_edition)
 
 show_sort_window.clicked.connect(SORTED_BOOK.sort_book)
 sort_confirmation_butthon.clicked.connect(SORTED_BOOK.implement_sort)
+
+show_patron_window.clicked.connect(PATRON.patron)
+patron_confirmation_button.clicked.connect(PATRON.saveInformationsOfPatrons)
 parameter_box.addItems([
     "ID",
     "TITLE",
@@ -959,7 +1045,6 @@ sort_sorted_parameter_box_options.addItems(
 )
 
 sort_sorted_parameter_box_options.currentTextChanged.connect(update_sort_sorted_parameter_box_options)
-
 sort_method_box_options.addItems(
     [
         "ASCD",
