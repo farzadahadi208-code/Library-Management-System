@@ -1,6 +1,6 @@
 import sys 
 import backend
-from PyQt6.QtWidgets import  QApplication,QLabel,QLineEdit,QPushButton,QComboBox,QWidget, QTableWidget,QTableWidgetItem
+from PyQt6.QtWidgets import  QApplication,QLabel,QMessageBox,QLineEdit,QPushButton,QComboBox,QWidget, QTableWidget,QTableWidgetItem
 #CREATING OBJECTS
 app=QApplication(sys.argv)
 window=QWidget()
@@ -8,7 +8,7 @@ window=QWidget()
 table=QTableWidget(window)
 search_window=QWidget()
 parameter_box=QComboBox(search_window)
-
+message=QMessageBox()
 #SEARCH CLASS OBJECTS
 show_search_button=QPushButton(window)
 show_search_button.move(0,650)
@@ -19,7 +19,7 @@ search__parameter_label=QLabel(search_window)
 search__name_label=QLabel(search_window)
 search_input_parmeter=QLineEdit(search_window)
 search_input_name=QLineEdit(search_window)
-
+show_result_table_of_search=QWidget()
 #ADD CLASS OBJECTS
 
 show_add_button_window=QPushButton(window)
@@ -64,12 +64,12 @@ add_book_volumes_label=QLabel(add_book_window)
 #VOLUME ADDED 
 add_book_volume_input=QLineEdit(add_book_window)
 add_book_volume_label=QLabel(add_book_window)
-#COPIES_TOTAL
-add_book_copies_total_input=QLineEdit(add_book_window)
-add_book_copies_total_label=QLabel(add_book_window)
-#COPIES_AVAILABLE
-add_book_copies_available_input=QLineEdit(add_book_window)
-add_book_copies_available_label=QLabel(add_book_window)
+#total_copies
+add_book_total_copies_input=QLineEdit(add_book_window)
+add_book_total_copies_label=QLabel(add_book_window)
+#available_copies
+add_book_available_copies_input=QLineEdit(add_book_window)
+add_book_available_copies_label=QLabel(add_book_window)
 #PUBLICATION INFORMATION
 add_book_publication_input=QLineEdit(add_book_window)
 add_book_publication_label=QLabel(add_book_window)
@@ -88,9 +88,6 @@ add_book_year_label=QLabel(add_book_window)
 #LANGUAGE ADDED
 add_book_language_input=QLineEdit(add_book_window)
 add_book_language_label=QLabel(add_book_window)
-#STATUS ADDED
-add_book_status_input=QLineEdit(add_book_window)
-add_book_status_label=QLabel(add_book_window)
 #NOTES ADDED
 add_book_notes_input=QLineEdit(add_book_window)
 add_book_notes_label=QLabel(add_book_window)
@@ -324,10 +321,10 @@ class SHOW_BOOK:
     def __init__(self):
         #creating table
         table.resize(1360,650)
-        table.setColumnCount(22)
+        table.setColumnCount(21)
         table.setRowCount(10000)
         table.setHorizontalHeaderLabels(
-            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","COPIES_TOTAL","COPIES_AVAILABLE","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","STATUS","NOTES"]
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","NOTES"]
         )
         #importing data from backend to frontend
         rows=backend.SHOW_BOOKS.disply_book()
@@ -369,11 +366,22 @@ class SEARCH_BOOK:
     def find_book(self):
         parameter=parameter_box.currentText()
         name=search_input_name.text()
-        answer=backend.SEARCH_BOOKS.result(parameter,name)
-        if answer:
-            print("it exists")
-        else:
-            print("it does not exists")
+        search_result_table=QTableWidget(show_result_table_of_search)
+        show_result_table_of_search.resize(500,300)
+        show_result_table_of_search.show()
+        search_result_table.resize(500,300)
+        search_result_table.setColumnCount(21)
+        search_result_table.setRowCount(20)
+        search_result_table.setHorizontalHeaderLabels(
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","NOTES"]
+        )
+        search_table=backend.SEARCH_BOOKS.result(parameter,name)
+        if search_table:
+            for x,row in enumerate(search_table):
+                for y,value in enumerate(row):
+                    search_result_table.setItem(x,y,QTableWidgetItem(str(value)))
+
+        search_window.close()
 
 class ADD_BOOK:
     def __init__(self):
@@ -404,12 +412,12 @@ class ADD_BOOK:
         add_book_author_label.setText("AUTHOR(REQURIED)")
         add_book_author_label.move(20,150)
         add_book_author_label.show()
-        #COPIES_AVAILABLE
-        add_book_copies_available_input.resize(150,30)
-        add_book_copies_available_input.move(20,220)
-        add_book_copies_available_label.setText("COPIES_AVAILABLE")
-        add_book_copies_available_label.move(20,200)
-        add_book_copies_available_label.show()
+        #available_copies
+        add_book_available_copies_input.resize(150,30)
+        add_book_available_copies_input.move(20,220)
+        add_book_available_copies_label.setText("AVAILABLE_COPIES")
+        add_book_available_copies_label.move(20,200)
+        add_book_available_copies_label.show()
         #PUBLICATION INFORMATION
         add_book_publication_input.resize(150,30)
         add_book_publication_input.move(20,270)
@@ -485,29 +493,23 @@ class ADD_BOOK:
         add_book_volume_label.setText("VOLUME (REQURIED)")
         add_book_volume_label.move(350,100)
         add_book_volume_label.show()
-        #COPIES_TOTAL
-        add_book_copies_total_input.resize(150,30)
-        add_book_copies_total_input.move(350,170)
-        add_book_copies_total_label.setText("COPIES_TOTAL")
-        add_book_copies_total_label.move(350,150)
-        add_book_copies_total_label.show()
+        #total_copies
+        add_book_total_copies_input.resize(150,30)
+        add_book_total_copies_input.move(350,170)
+        add_book_total_copies_label.setText("TOTAL_COPIES")
+        add_book_total_copies_label.move(350,150)
+        add_book_total_copies_label.show()
         #LANGUAGE ADDED
         add_book_language_input.resize(150,30)
         add_book_language_input.move(350,220)
         add_book_language_label.setText("LANGUAGE(REQURIED)")
         add_book_language_label.move(350,200)
         add_book_language_label.show()
-        #STATUS ADDED
-        add_book_status_input.resize(150,30)
-        add_book_status_input.move(350,270)
-        add_book_status_label.setText("STATUS(REQURIED)")
-        add_book_status_label.move(350,250)
-        add_book_status_label.show()
         #NOTES
         add_book_notes_input.resize(150,30)
-        add_book_notes_input.move(350,320)
+        add_book_notes_input.move(350,270)
         add_book_notes_label.setText("NOTES")
-        add_book_notes_label.move(350,300)
+        add_book_notes_label.move(350,250)
         add_book_notes_label.show()
 
 
@@ -535,10 +537,10 @@ class ADD_BOOK:
         add_book_volumes_input.clear()
         volume=add_book_volume_input.text()
         add_book_volume_input.clear()
-        copies_total=add_book_copies_total_input.text()
-        add_book_copies_total_input.clear()
-        copies_available=add_book_copies_available_input.text()
-        add_book_copies_available_input.clear()
+        total_copies=add_book_total_copies_input.text()
+        add_book_total_copies_input.clear()
+        available_copies=add_book_available_copies_input.text()
+        add_book_available_copies_input.clear()
         publication=add_book_publication_input.text()
         add_book_publication_input.clear()
         pages=add_book_pages_input.text()
@@ -551,11 +553,9 @@ class ADD_BOOK:
         add_book_year_input.clear()
         language=add_book_language_input.text()
         add_book_language_input.clear()
-        status=add_book_status_input.text()
-        add_book_status_input.clear()
         notes=add_book_notes_input.text()
         add_book_notes_input.clear()
-        backend.ADD_BOOKS.add(id,title,category,classification,author,transletor,shelf,row,binding,isbn,volumes,volume,copies_total,copies_available,publication,pages,unit_price,total_price,year,language,status,notes)
+        backend.ADD_BOOKS.add(id,title,category,classification,author,transletor,shelf,row,binding,isbn,volumes,volume,total_copies,available_copies,publication,pages,unit_price,total_price,year,language,notes)
         
 class DELETE_BOOK:
     def __init__(self):
@@ -900,10 +900,10 @@ class SORTED_BOOK:
         sorted_table_window.resize(1000,500)
         sorted_table_window.show()
         sorted_table.resize(1000,500)
-        sorted_table.setColumnCount(22)
+        sorted_table.setColumnCount(21)
         sorted_table.setRowCount(10000)
         sorted_table.setHorizontalHeaderLabels(
-            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","COPIES_TOTAL","COPIES_AVAILABLE","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","STATUS","NOTES"]
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","NOTES"]
         )
         for i,row in enumerate(table_is_sorted):
             for j,value in enumerate(row):
@@ -1093,15 +1093,14 @@ parameter_box.addItems([
     "ISBN",
     "NUMBER OF VOLUMES",
     "VOLUME",
-    "COPIES_TOTAL",
-    "COPIES_AVAILABLE",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
     "PUBLICATION INFORMATION",
     "PAGES",
     "UNIT PRICE",
     "TOTAL PRICE",
     "PUBLISHED YEAR",
     "LANGUAGE",
-    "STATUS",
     "NOTES"
     
 ])
@@ -1132,15 +1131,14 @@ sort_sorted_parameter_box_options.addItems(
     "ISBN",
     "NUMBER OF VOLUMES",
     "VOLUME",
-    "COPIES_TOTAL",
-    "COPIES_AVAILABLE",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
     "PUBLICATION INFORMATION",
     "PAGES",
     "UNIT PRICE",
     "TOTAL PRICE",
     "PUBLISHED YEAR",
-    "LANGUAGE",
-    "STATUS"
+    "LANGUAGE"
     ]
 )
 
@@ -1152,6 +1150,33 @@ sort_method_box_options.addItems(
     ]
 )
 sort_method_box_options.currentTextChanged.connect(update_sort_method_box_options)
+edit_box_parameter_options.resize(115,30)
+edit_box_parameter_options.move(140,30)
+edit_box_parameter_options.currentTextChanged.connect(update_edit_box_parameter_options)
+edit_box_parameter_options.addItems(
+    [
+    "ID",
+    "TITLE",
+    "CATEGORY",
+    "CLASSIFICATION",
+    "AUTHOR",
+    "TRANSLATOR",
+    "SHELF",
+    "ROW",
+    "BINDING",
+    "ISBN",
+    "NUMBER OF VOLUMES",
+    "VOLUME",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
+    "PUBLICATION INFORMATION",
+    "PAGES",
+    "UNIT PRICE",
+    "TOTAL PRICE",
+    "PUBLISHED YEAR",
+    "LANGUAGE"
+    ]
+)
 SHOW_BOOKS=SHOW_BOOK()
 
 

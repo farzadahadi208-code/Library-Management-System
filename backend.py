@@ -30,22 +30,22 @@ class SEARCH_BOOK:
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
         cursor.execute(f"SELECT * FROM BOOK WHERE {parameter} = ? ",(name,) )
-        show_result=cursor.fetchone()
+        show_result=cursor.fetchall()
         conn.close()
         return show_result
 
 
 
 class ADD_BOOK:
-    def add(self,ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,COPIES_TOTAL,COPIES_AVAILABLE,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,STATUS,NOTES):
+    def add(self,ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,TOTAL_COPIES,AVAILABLE_COPIES,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,NOTES):
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
         query="""
-            INSERT INTO BOOK (ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,COPIES_TOTAL,COPIES_AVAILABLE,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,STATUS,NOTES)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            INSERT INTO BOOK (ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,TOTAL_COPIES,AVAILABLE_COPIES,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,NOTES)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """
         
-        cursor.execute(query,(ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,COPIES_TOTAL,COPIES_AVAILABLE,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,STATUS,NOTES,))
+        cursor.execute(query,(ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,TOTAL_COPIES,AVAILABLE_COPIES,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,NOTES,))
         conn.commit()
         conn.close()
 
@@ -214,14 +214,14 @@ class REPORT:
         worksheet=workbook.active
         worksheet.append(
             [
-                "ID","TITLE","CATEGORY","CLASSIFICATION","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","COPIES_TOTAL","COPIES_AVAILABLE","PUBLICATION_INFORMATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","STATUS","NOTES"
+                "ID","TITLE","CATEGORY","CLASSIFICATION","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION_INFORMATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","NOTES"
             ]
         )
         for x in range(2,last_row+2): 
             row=books[row_counter]
             row_counter=row_counter+1
             column_counter=0
-            for y in range(1,22):
+            for y in range(1,21):
                 worksheet.cell(row=x,column=y).value=row[column_counter]
                 column_counter=column_counter+1
         workbook.save("List Of Book In Library.xlsx")
