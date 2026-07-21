@@ -166,10 +166,36 @@ class PATRON:
         time_of_receive=str(datetime.now().time())
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
-        query="""INSERT INTO PATRON (ID,NAME,FATHER_NAME,DUTY,UNIVERSITY,SEMESTER,MAJOR,DATE,BOOK,TIME_OF_RECEIVE)
+        query="""INSERT INTO PATRON (ID,NAME,FATHER_NAME,DUTY,UNIVERSITY,SEMESTER,MAJOR,BOOK,DATE,TIME_OF_RECEIVE)
         VALUES (?,?,?,?,?,?,?,?,?,?)
         """
         cursor.execute(query,(id,name,father_name,duty,university,semester,major,book,date,time_of_receive,))
+        conn.commit()
+        conn.close()
+
+class CURRENT_PATRON:
+    def currentpatron(self):
+        date=datetime.now().date()
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query1="DELETE FROM CURRENTPATRON;"
+        query2="""
+        INSERT INTO CURRENTPATRON (ID,NAME,FATHER_NAME,DUTY,UNIVERSITY,SEMESTER,MAJOR,DATE,BOOK,TIME_OF_RECEIVE,RECEIVED_BOOK)
+        SELECT ID,NAME,FATHER_NAME,DUTY,UNIVERSITY,SEMESTER,MAJOR,DATE,BOOK,TIME_OF_RECEIVE,RECEIVED_BOOK FROM PATRON WHERE DATE=?
+        """
+        query3="SELECT * FROM CURRENTPATRON"
+        cursor.execute(query1)
+        cursor.execute(query2,(date,))
+        cursor.execute(query3)
+        currentpatron_table=cursor.fetchall()
+        conn.commit()
+        conn.close()
+        return currentpatron_table
+    def recieve_book(self,name,book):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        query="UPDATE PATRON SET RECEIVED_BOOK='Received' WHERE NAME= ? AND BOOK=?"
+        cursor.execute(query,(name,book,))
         conn.commit()
         conn.close()
 
@@ -184,8 +210,7 @@ RETURN_BOOKS=RETURN_BOOK()
 EDIT_BOOKS=EDIT_BOOK()
 SORT_BOOKS=SORT_BOOK()
 PARTONS=PATRON()
-
-
+CURRENT_PATRONS=CURRENT_PATRON()
 
 
 

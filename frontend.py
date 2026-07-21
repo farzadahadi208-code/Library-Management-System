@@ -262,30 +262,39 @@ show_patron_window.setText("PATRON")
 show_patron_window.resize(100,55)
 show_patron_window.move(770,650)
 patron_window=QWidget()
-
 patron_name_input=QLineEdit(patron_window)
 patron_name_label=QLabel(patron_window)
-
 patron_father_name_input=QLineEdit(patron_window)
 patron_father_name_label=QLabel(patron_window)
-
 patron_duty_input=QLineEdit(patron_window)
 patron_duty_label=QLabel(patron_window)
-
 patron_university_input=QLineEdit(patron_window)
 patron_university_label=QLabel(patron_window)
-
 patron_semester_input=QLineEdit(patron_window)
 patron_semester_label=QLabel(patron_window)
-
 patron_major_input=QLineEdit(patron_window)
 patron_major_label=QLabel(patron_window)
-
 patron_book_input=QLineEdit(patron_window)
 patron_book_label=QLabel(patron_window)
-
 patron_confirmation_button=QPushButton(patron_window)
 
+#CURRNT_PATRON CLASS OBJECTS
+show_current_parton_button=QPushButton(window)
+show_current_parton_button.setText("Current Patrons")
+show_current_parton_button.resize(100,55)
+show_current_parton_button.move(880,650)
+current_patron_window=QWidget()
+current_patrons=QTableWidget(current_patron_window)
+
+show_current_patron_receive_book_window=QPushButton(current_patron_window)
+current_patron_receive_book_window=QWidget()
+current_patron_name_input=QLineEdit(current_patron_receive_book_window)
+current_patron_name_label=QLabel(current_patron_receive_book_window)
+
+current_patron_book_input=QLineEdit(current_patron_receive_book_window)
+current_patron_book_label=QLabel(current_patron_receive_book_window)
+
+current_patron_confirmation_button=QPushButton(current_patron_receive_book_window)
 def update_sort_method_box_options(text):
     sort_method_input.setText(text)
 
@@ -950,7 +959,50 @@ class PATRON:
         major=patron_major_input.text()
         book=patron_book_input.text()
         backend.PARTONS.parton(name,father_name,duty,university,semester,major,book)
-    
+
+class CURRENT_PATRON:
+    def currentPatron(self):
+        current_patron_window.resize(740,300)
+        current_patron_window.show()
+        show_current_patron_receive_book_window.setText("Receive Book")
+        show_current_patron_receive_book_window.resize(750,30)
+        show_current_patron_receive_book_window.move(0,260)
+        current_patron=backend.CURRENT_PATRONS.currentpatron()
+        current_patrons.resize(740,250)
+        current_patrons.setColumnCount(11)
+        current_patrons.setRowCount(100)
+        current_patrons.setHorizontalHeaderLabels(
+            [
+                "ID","NAME","FATHER_NAME","DUTY","UNIVERSITY","SEMESTER","MAJOR","DATE","BOOK","TIME_OF_RECEIVE","RECEIVED BOOK"
+            ]
+        )
+        for x,row in enumerate(current_patron):
+            for y,value in enumerate(row):
+                current_patrons.setItem(x,y,QTableWidgetItem(str(value)))
+        current_patrons.resizeColumnsToContents()
+
+    def receive_book(self):
+        current_patron_receive_book_window.resize(250,110)
+        current_patron_receive_book_window.show()
+
+        current_patron_name_input.resize(100,30)
+        current_patron_name_input.move(20,30)
+        current_patron_name_label.setText("Name Of Potron")
+        current_patron_name_label.move(20,10)
+        current_patron_name_label.show()
+
+        current_patron_book_input.resize(100,30)
+        current_patron_book_input.move(130,30)
+        current_patron_book_label.setText("Name Of Book")
+        current_patron_book_label.move(130,10)
+        current_patron_book_label.show()
+        current_patron_confirmation_button.setText("Receive Book")
+        current_patron_confirmation_button.resize(100,30)
+        current_patron_confirmation_button.move(75,70)
+    def delete_patron(self):
+        name=current_patron_name_input.text()
+        book=current_patron_book_input.text()
+        backend.CURRENT_PATRONS.recieve_book(name,book)
 
 #MAIN
 
@@ -980,6 +1032,10 @@ sort_confirmation_butthon.clicked.connect(SORTED_BOOK.implement_sort)
 
 show_patron_window.clicked.connect(PATRON.patron)
 patron_confirmation_button.clicked.connect(PATRON.saveInformationsOfPatrons)
+
+show_current_parton_button.clicked.connect(CURRENT_PATRON.currentPatron)
+show_current_patron_receive_book_window.clicked.connect(CURRENT_PATRON.receive_book)
+current_patron_confirmation_button.clicked.connect(CURRENT_PATRON.delete_patron)
 parameter_box.addItems([
     "ID",
     "TITLE",
