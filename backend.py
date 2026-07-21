@@ -1,4 +1,5 @@
 import sqlite3
+from openpyxl import Workbook
 from datetime import datetime
 def last_row(table):
     last=sqlite3.connect("Library Management System.db")
@@ -198,7 +199,114 @@ class CURRENT_PATRON:
         cursor.execute(query,(name,book,))
         conn.commit()
         conn.close()
+class REPORT:
+    def report_of_all_book(self):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM BOOK")
+        books=cursor.fetchall()
+        cursor.execute("SELECT COUNT(*) FROM BOOK")
+        max_row=cursor.fetchone()
+        last_row=max_row[0]
+        conn.close()
+        workbook=Workbook()
+        row_counter=0
+        worksheet=workbook.active
+        worksheet.append(
+            [
+                "ID","TITLE","CATEGORY","CLASSIFICATION","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","COPIES_TOTAL","COPIES_AVAILABLE","PUBLICATION_INFORMATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","STATUS","NOTES"
+            ]
+        )
+        for x in range(2,last_row+2): 
+            row=books[row_counter]
+            row_counter=row_counter+1
+            column_counter=0
+            for y in range(1,22):
+                worksheet.cell(row=x,column=y).value=row[column_counter]
+                column_counter=column_counter+1
+        workbook.save("List Of Book In Library.xlsx")
+        workbook.close()
 
+    def borrowed_book_by_passport(self):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM PASSPORT")
+        passportInfo=cursor.fetchall()
+        cursor.execute("SELECT COUNT(*) FROM PASSPORT")
+        max_row=cursor.fetchone()
+        last_row=max_row[0]
+        conn.close()
+        workbook=Workbook()
+        worksheet=workbook.active
+        worksheet.append(
+            [
+                "id","passport_NO","FULL_NAME","NATIONALITY","DATE_OF_BIRTH","PLACE_OF_BIRTH","DATE_OF_ISSUE","DATE_OF_EXPIRY","DATE_OF_RECEIVE","DATE_OF_RETURN","BOOK","IS_RECEIVED"
+            ]
+        )
+        row_counter=0
+        for x in range(2,last_row+2):
+            row=passportInfo[row_counter]
+            row_counter=row_counter+1
+            column_conter=0
+            for y in range (1,12):
+                worksheet.cell(row=x,column=y).value=row[column_conter]
+                column_conter=column_conter+1
+        workbook.save("Borrowed Book By Passport.xlsx")
+        workbook.close()
+
+    def borrowed_book_by_identitycard(self):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM IDENTITYCARD")
+        identitycard=cursor.fetchall()
+        cursor.execute("SELECT COUNT(*) FROM IDENTITYCARD")
+        max_row=cursor.fetchone()
+        last_row=max_row[0]
+        conn.close()
+        workbook=Workbook()
+        worksheet=workbook.active
+        worksheet.append(
+            [
+                "id","ID_NUMBER","FULLNAME","NATIONALITY","DATE_OF_BIRTH","PLACE_OF_BIRTH","DATE_OF_ISSUE","DATE_OF_EXPIRY","GENDER","DATE_OF_RECEIVE","DATE_OF_RETURN","BOOK","IS_RECEIVED"
+            ]   
+        )
+        row_counter=0
+        for x in range(2,last_row+2):
+            row=identitycard[row_counter]
+            row_counter=row_counter+1
+            column_conter=0
+            for y in range (1,12):
+                worksheet.cell(row=x,column=y).value=row[column_conter]
+                column_conter=column_conter+1
+        workbook.save("Borrowed Book By identity card.xlsx")
+        workbook.close()
+
+    def report_of_patron(self):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM PATRON")
+        identitycard=cursor.fetchall()
+        cursor.execute("SELECT COUNT(*) FROM PATRON")
+        max_row=cursor.fetchone()
+        last_row=max_row[0]
+        conn.close()
+        workbook=Workbook()
+        worksheet=workbook.active
+        worksheet.append(
+            [
+                 "ID","NAME","FATHER_NAME","DUTY","UNIVERSITY","SEMESTER","MAJOR","DATE","BOOK","TIME_OF_RECEIVE","RECEIVED_BOOK"
+            ]   
+        )
+        row_counter=0
+        for x in range(2,last_row+2):
+            row=identitycard[row_counter]
+            row_counter=row_counter+1
+            column_conter=0
+            for y in range (1,12):
+                worksheet.cell(row=x,column=y).value=row[column_conter]
+                column_conter=column_conter+1
+        workbook.save("Patrons.xlsx")
+        workbook.close()
 
 
 SHOW_BOOKS=SHOW_BOOK()
@@ -211,6 +319,4 @@ EDIT_BOOKS=EDIT_BOOK()
 SORT_BOOKS=SORT_BOOK()
 PARTONS=PATRON()
 CURRENT_PATRONS=CURRENT_PATRON()
-
-
-
+REPORTS=REPORT()

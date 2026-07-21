@@ -295,6 +295,17 @@ current_patron_book_input=QLineEdit(current_patron_receive_book_window)
 current_patron_book_label=QLabel(current_patron_receive_book_window)
 
 current_patron_confirmation_button=QPushButton(current_patron_receive_book_window)
+
+#REPORT CLASS OBJECTS
+show_report_window=QPushButton(window)
+show_report_window.setText("Report")
+show_report_window.resize(100,55)
+show_report_window.move(880,650)
+report_window=QWidget()
+report_book=QPushButton(report_window)
+report_borrowed_book=QPushButton(report_window)
+report_potrons=QPushButton(report_window)
+
 def update_sort_method_box_options(text):
     sort_method_input.setText(text)
 
@@ -1004,6 +1015,33 @@ class CURRENT_PATRON:
         book=current_patron_book_input.text()
         backend.CURRENT_PATRONS.recieve_book(name,book)
 
+class REPORT:
+    def show_options(self):
+        report_window.resize(200,170)
+        report_window.show()
+        report_book.setText("Book")
+        report_book.resize(100,30)
+        report_book.move(50,30)
+
+        report_borrowed_book.setText("Borrowed Book")
+        report_borrowed_book.resize(100,30)
+        report_borrowed_book.move(50,70)
+
+        report_potrons.setText("Patrons")
+        report_potrons.resize(100,30)
+        report_potrons.move(50,110)
+
+    def report_of_all_book(self):
+        backend.REPORTS.report_of_all_book()
+
+    def report_of_borrowed_book(self):
+        backend.REPORTS.borrowed_book_by_passport()
+        backend.REPORTS.borrowed_book_by_identitycard()
+
+    def report_of_patron(self):
+        backend.REPORTS.report_of_patron()
+
+        
 #MAIN
 
 show_search_button.clicked.connect(SEARCH_BOOK)
@@ -1036,6 +1074,12 @@ patron_confirmation_button.clicked.connect(PATRON.saveInformationsOfPatrons)
 show_current_parton_button.clicked.connect(CURRENT_PATRON.currentPatron)
 show_current_patron_receive_book_window.clicked.connect(CURRENT_PATRON.receive_book)
 current_patron_confirmation_button.clicked.connect(CURRENT_PATRON.delete_patron)
+
+show_report_window.clicked.connect(REPORT.show_options)
+report_book.clicked.connect(REPORT.report_of_all_book)
+report_borrowed_book.clicked.connect(REPORT.report_of_borrowed_book)
+report_potrons.clicked.connect(REPORT.report_of_patron)
+
 parameter_box.addItems([
     "ID",
     "TITLE",
