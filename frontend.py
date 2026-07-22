@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import  QApplication,QLabel,QMessageBox,QLineEdit,QPushButt
 #CREATING OBJECTS
 app=QApplication(sys.argv)
 window=QWidget()
-
+window.setWindowTitle("Library Management System")
 table=QTableWidget(window)
 search_window=QWidget()
 parameter_box=QComboBox(search_window)
@@ -14,6 +14,7 @@ show_search_button=QPushButton(window)
 show_search_button.move(0,650)
 show_search_button.resize(100,55)
 show_search_button.setText("Search Book")
+search_window.setWindowTitle("Search Book")
 search_button=QPushButton(search_window)
 search__parameter_label=QLabel(search_window)
 search__name_label=QLabel(search_window)
@@ -27,6 +28,7 @@ show_add_button_window.resize(100,55)
 show_add_button_window.move(110,650)
 show_add_button_window.setText("Add Book")
 add_book_window=QWidget()
+add_book_window.setWindowTitle("Add Book")
 add_button=QPushButton(add_book_window)
 add_button.resize(485,40)
 add_button.move(20,355)
@@ -96,6 +98,7 @@ add_book_notes_label=QLabel(add_book_window)
 show_delete_window=QPushButton(window)
 show_delete_window.setText("Delete Book")
 delete_window=QWidget()
+delete_window.setWindowTitle("Delete Book")
 delete_button=QPushButton(delete_window)
 show_delete_window.resize(100,55)
 show_delete_window.move(220,650)
@@ -108,6 +111,7 @@ show_borrow_window.resize(100,55)
 show_borrow_window.move(330,650)
 show_borrow_window.setText("Borrow Book")
 borrow_window=QWidget()
+borrow_window.setWindowTitle("Borrow Book")
 borrow_title_input=QLineEdit(borrow_window)
 borrow_title_label=QLabel(borrow_window)
 guaranty_button=QPushButton(borrow_window)
@@ -117,7 +121,7 @@ identityCard_button=QPushButton(guarantyOption)
 
 #passport objects
 passport_window=QWidget()
-
+passport_window.setWindowTitle("Passport Information")
 passport_Id_input=QLineEdit(passport_window)
 passport_Id_label=QLabel(passport_window)
 
@@ -152,7 +156,7 @@ passport_confirmation_key=QPushButton(passport_window)
 
 #identitycard
 identityCard_window=QWidget()
-
+identityCard_window.setWindowTitle("Identitycard Information")
 identitycard_id_input=QLineEdit(identityCard_window)
 identitycard_id_label=QLabel(identityCard_window)
 
@@ -194,7 +198,7 @@ show_return_window.resize(100,55)
 show_return_window.move(440,650)
 show_return_window.setText("Return Book")
 return_window=QWidget()
-
+return_window.setWindowTitle("Return Book")
 return_book_name_input=QLineEdit(return_window)
 return_book_name_label= QLabel(return_window)
 
@@ -218,6 +222,7 @@ show_edit_window.resize(100,55)
 show_edit_window.move(550,650)
 
 edit_window=QWidget()
+edit_window.setWindowTitle("Edit Book")
 edit_box_parameter_options=QComboBox(edit_window)
 edit_name_of_book_input=QLineEdit(edit_window)
 edit_name_of_book_lable=QLabel(edit_window)
@@ -239,6 +244,7 @@ show_sort_window.setText("Sort Books")
 show_sort_window.resize(100,55)
 show_sort_window.move(660,650)
 sort_window=QWidget()
+sort_window.setWindowTitle("Sort Books")
 sort_sorted_parameter_box_options=QComboBox(sort_window)
 sort_sorted_parameter_box_options.resize(115,30)
 sort_sorted_parameter_box_options.move(20,30)
@@ -259,6 +265,7 @@ show_patron_window.setText("PATRON")
 show_patron_window.resize(100,55)
 show_patron_window.move(770,650)
 patron_window=QWidget()
+patron_window.setWindowTitle("Patron")
 patron_name_input=QLineEdit(patron_window)
 patron_name_label=QLabel(patron_window)
 patron_father_name_input=QLineEdit(patron_window)
@@ -281,6 +288,7 @@ show_current_parton_button.setText("Current Patrons")
 show_current_parton_button.resize(100,55)
 show_current_parton_button.move(880,650)
 current_patron_window=QWidget()
+current_patron_window.setWindowTitle("Current Patron")
 current_patrons=QTableWidget(current_patron_window)
 
 show_current_patron_receive_book_window=QPushButton(current_patron_window)
@@ -297,12 +305,14 @@ current_patron_confirmation_button=QPushButton(current_patron_receive_book_windo
 show_report_window=QPushButton(window)
 show_report_window.setText("Report")
 show_report_window.resize(100,55)
-show_report_window.move(880,650)
+show_report_window.move(990,650)
 report_window=QWidget()
+report_window.setWindowTitle("Report")
 report_book=QPushButton(report_window)
 report_borrowed_book=QPushButton(report_window)
 report_potrons=QPushButton(report_window)
-
+report_deleted_book=QPushButton(report_window)
+       
 def update_sort_method_box_options(text):
     sort_method_input.setText(text)
 
@@ -391,13 +401,13 @@ class ADD_BOOK:
         #TITLE ADDED
         add_book_title_input.resize(150,30)
         add_book_title_input.move(20,20)
-        add_book_title_label.setText("TITLE (REQURIED)")
+        add_book_title_label.setText("TITLE (REQUIRED)")
         add_book_title_label.move(20,0)
         add_book_title_label.show()
         #CATEGORY ADDED
         add_book_category_input.resize(150,30)
         add_book_category_input.move(20,70)
-        add_book_category_label.setText("CATEGORY(REQURIED)")
+        add_book_category_label.setText("CATEGORY(REQUIRED)")
         add_book_category_label.move(20,50)
         add_book_category_label.show()
         #CLASSIFACATION ADDED
@@ -409,7 +419,7 @@ class ADD_BOOK:
         #AUTHOR ADDED
         add_book_author_input.resize(150,30)
         add_book_author_input.move(20,170)
-        add_book_author_label.setText("AUTHOR(REQURIED)")
+        add_book_author_label.setText("AUTHOR(REQUIRED)")
         add_book_author_label.move(20,150)
         add_book_author_label.show()
         #available_copies
@@ -440,19 +450,19 @@ class ADD_BOOK:
         #SHELF ADDED
         add_book_shelf_input.resize(150,30)
         add_book_shelf_input.move(190,70)
-        add_book_shelf_label.setText("SHELF(REQURIED)")
+        add_book_shelf_label.setText("SHELF(REQUIRED)")
         add_book_shelf_label.move(190,50)
         add_book_shelf_label.show()
         #ROW ADDED
         add_book_row_input.resize(150,30)
         add_book_row_input.move(190,120)
-        add_book_row_label.setText("ROW(REQURIED)")
+        add_book_row_label.setText("ROW(REQUIRED)")
         add_book_row_label.move(190,100)
         add_book_row_label.show()
         #BINDING ADDED
         add_book_binding_input.resize(150,30)
         add_book_binding_input.move(190,170)
-        add_book_binding_label.setText("BINDING(REQURIED)")
+        add_book_binding_label.setText("BINDING(REQUIRED)")
         add_book_binding_label.move(190,150)
         add_book_binding_label.show()
         #UNIT PRICE ADDED
@@ -478,19 +488,19 @@ class ADD_BOOK:
         #ISBN ADDED
         add_book_ISBN_input.resize(150,30)
         add_book_ISBN_input.move(350,20)
-        add_book_ISBN_label.setText("ISBN(REQURIED)")
+        add_book_ISBN_label.setText("ISBN(REQUIRED)")
         add_book_ISBN_label.move(350,0)
         add_book_ISBN_label.show()
         #VOLUMES ADDED
         add_book_volumes_input.resize(150,30)
         add_book_volumes_input.move(350,70)
-        add_book_volumes_label.setText("VOLUMES (REQURIED)")
+        add_book_volumes_label.setText("VOLUMES (REQUIRED)")
         add_book_volumes_label.move(350,50)
         add_book_volumes_label.show()  
         #VOLUME ADDED   
         add_book_volume_input.resize(150,30)
         add_book_volume_input.move(350,120)
-        add_book_volume_label.setText("VOLUME (REQURIED)")
+        add_book_volume_label.setText("VOLUME (REQUIRED)")
         add_book_volume_label.move(350,100)
         add_book_volume_label.show()
         #total_copies
@@ -502,7 +512,7 @@ class ADD_BOOK:
         #LANGUAGE ADDED
         add_book_language_input.resize(150,30)
         add_book_language_input.move(350,220)
-        add_book_language_label.setText("LANGUAGE(REQURIED)")
+        add_book_language_label.setText("LANGUAGE(REQUIRED)")
         add_book_language_label.move(350,200)
         add_book_language_label.show()
         #NOTES
@@ -556,7 +566,9 @@ class ADD_BOOK:
         notes=add_book_notes_input.text()
         add_book_notes_input.clear()
         backend.ADD_BOOKS.add(id,title,category,classification,author,transletor,shelf,row,binding,isbn,volumes,volume,total_copies,available_copies,publication,pages,unit_price,total_price,year,language,notes)
-        
+        SHOW_BOOK()
+        add_book_window.close()
+
 class DELETE_BOOK:
     def __init__(self):
         delete_window.resize(200,100)
@@ -574,6 +586,8 @@ class DELETE_BOOK:
         name_of_book=delete_book_input.text()
         delete_book_input.clear()
         backend.DELETE_BOOKS.delete(name_of_book)
+        SHOW_BOOK()
+        delete_window.close()
     
 class BORROW_BOOK:
     def __init__(self):
@@ -587,6 +601,7 @@ class BORROW_BOOK:
         guaranty_button.setText("Guranty")
         guaranty_button.resize(100,30)
         guaranty_button.move(75,70)
+        
         
 
   
@@ -605,11 +620,19 @@ class BORROW_BOOK:
             identityCard_button.move(140,20)
 
         if status_of_wanted_book==1:
-            print("we do not have this book")
-            return 1
+           message.warning(
+               borrow_window,
+               "Search",
+               "This Book Does Not Exist"
+           )
         if status_of_wanted_book==2:
-            print("we do not have enough book")
-            return 1
+            message.warning(
+               borrow_window,
+               "Search",
+               "We Do Not Have Enough Copy Of This Book"
+           )
+        borrow_window.close()
+            
         
     def Passport(self):
         passport_window.resize(360,300)
@@ -680,6 +703,9 @@ class BORROW_BOOK:
         passport_confirmation_key.resize(330,30)
         passport_confirmation_key.move(20,250)
         passport_confirmation_key.setText("Confirm The Information")
+        
+        guarantyOption.close()
+        
     
     def savePassportInfo():
         id=passport_Id_input.text()
@@ -692,9 +718,9 @@ class BORROW_BOOK:
         date_of_receive=passport_date_of_receive_input.text()
         date_of_return=passport_date_of_return_input.text()
         book=passport_book_input.text()
-
+        passport_window.close()
         set_information_to_passport_table=backend.BORROW_BOOKS.passportGuarante(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,date_of_receive,date_of_return,book)
-        
+        SHOW_BOOK()
 
     def identiyCard(self):
         identityCard_window.resize(400,320)
@@ -771,6 +797,8 @@ class BORROW_BOOK:
         identitycard_conformiton_key.resize(340,30)
         identitycard_conformiton_key.move(20,250)
         identitycard_conformiton_key.setText("Confirm The Information")
+        guarantyOption.close()
+        
 
     def saveIdentityCardInfo(self):
         id=identitycard_id_input.text()
@@ -784,8 +812,9 @@ class BORROW_BOOK:
         date_of_receive=identitycard_date_of_receive_input.text()
         date_of_return=identitycard_date_of_return_input.text()
         book=identitycard_book_input.text()
+        identityCard_window.close()
         set_information_to_identityCard_table=backend.BORROW_BOOKS.identityCardGuarantuy(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,gender,date_of_receive,date_of_return,book)
-
+        SHOW_BOOK()
 
 class RETURN_BOOK:
     def receive_book(self):
@@ -821,14 +850,15 @@ class RETURN_BOOK:
         return_Confirmation_detail_button.resize(100,40)
         return_Confirmation_detail_button.move(100,80)
         return_Confirmation_detail_button.setText("Confirm Detail")
-
+        return_window.close()
 
     def received_book(self):
         book_name=return_book_name_input.text()
         id=return_id_input.text()
         guaranty=return_parmeter_input.text()
         backend.RETURN_BOOKS.recive_book(book_name,id,guaranty)
-        
+        show_window_option_select_passport_idetitycard.close()
+        SHOW_BOOK()
 
 
 class EDIT_BOOK:
@@ -870,7 +900,8 @@ class EDIT_BOOK:
         isbn=edit_isbn_input.text()
         new_value=edit_new_value_input.text()
         backend.EDIT_BOOKS.edit_book(edit_name_of_book,parameter,isbn,new_value)
-
+        edit_window.close()
+        SHOW_BOOK()
 
 
 class SORTED_BOOK:
@@ -909,7 +940,7 @@ class SORTED_BOOK:
             for j,value in enumerate(row):
                 sorted_table.setItem(i,j,QTableWidgetItem(str(value)))
         sorted_table.resizeColumnsToContents()
-
+        sort_window.close()
 
 class PATRON:
     def patron(self):
@@ -970,6 +1001,7 @@ class PATRON:
         major=patron_major_input.text()
         book=patron_book_input.text()
         backend.PARTONS.parton(name,father_name,duty,university,semester,major,book)
+        patron_window.close()
 
 class CURRENT_PATRON:
     def currentPatron(self):
@@ -1010,14 +1042,18 @@ class CURRENT_PATRON:
         current_patron_confirmation_button.setText("Receive Book")
         current_patron_confirmation_button.resize(100,30)
         current_patron_confirmation_button.move(75,70)
+        current_patron_window.close()
     def delete_patron(self):
         name=current_patron_name_input.text()
         book=current_patron_book_input.text()
         backend.CURRENT_PATRONS.recieve_book(name,book)
+        current_patron_receive_book_window.close() 
+        
+        
 
-class REPORT:
+class REPORT: 
     def show_options(self):
-        report_window.resize(200,170)
+        report_window.resize(200,220)
         report_window.show()
         report_book.setText("Book")
         report_book.resize(100,30)
@@ -1031,16 +1067,26 @@ class REPORT:
         report_potrons.resize(100,30)
         report_potrons.move(50,110)
 
+        report_deleted_book.setText("Deleted Book")
+        report_deleted_book.resize(100,30)
+        report_deleted_book.move(50,150)
     def report_of_all_book(self):
         backend.REPORTS.report_of_all_book()
+        report_window.close()
 
     def report_of_borrowed_book(self):
         backend.REPORTS.borrowed_book_by_passport()
         backend.REPORTS.borrowed_book_by_identitycard()
+        report_window.close()
 
     def report_of_patron(self):
         backend.REPORTS.report_of_patron()
+        report_window.close()
 
+    def report_deleted_book(self):
+        report_window.close()
+        backend.REPORTS.report_of_deleted_book()
+        
         
 #MAIN
 
@@ -1079,7 +1125,7 @@ show_report_window.clicked.connect(REPORT.show_options)
 report_book.clicked.connect(REPORT.report_of_all_book)
 report_borrowed_book.clicked.connect(REPORT.report_of_borrowed_book)
 report_potrons.clicked.connect(REPORT.report_of_patron)
-
+report_deleted_book.clicked.connect(REPORT.report_deleted_book)
 parameter_box.addItems([
     "ID",
     "TITLE",

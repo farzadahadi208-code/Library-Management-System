@@ -56,8 +56,14 @@ class DELETE_BOOK(SEARCH_BOOK):
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
         query="DELETE FROM BOOK WHERE ID = ?"
-        id=target[0]
+        target_row=target[0]
+        id=target_row[0]
         cursor.execute(query,(id,))
+        delete_query="""
+            INSERT INTO DELETED_BOOK (ID,TITLE,CATEGORY,CLASSIFICATION,AUTHOR,TRANSLATOR,SHELF,ROW,BINDING,ISBN,VOLUMES,VOLUME,TOTAL_COPIES,AVAILABLE_COPIES,PUBLICATION_INFORMATION,PAGES,UNIT_PRICE,TOTAL_PRICE,YEAR,LANGUAGE,NOTES)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                """
+        cursor.execute(delete_query,(target_row[0],target_row[1],target_row[2],target_row[3],target_row[4],target_row[5],target_row[6],target_row[7],target_row[8],target_row[9],target_row[10],target_row[11],target_row[12],target_row[13],target_row[14],target_row[15],target_row[16],target_row[17],target_row[18],target_row[19],target_row[20],))
         conn.commit()
         conn.close()
 
@@ -69,22 +75,23 @@ class BORROW_BOOK(SEARCH_BOOK):
         #self.confermation=2 means we do not have enough book
         SEARCH_BOOKS=SEARCH_BOOK()
         self.status=SEARCH_BOOKS.result("TITLE",name_of_book)
-        
+        row1=self.status[0]
         if self.status:
             pass
         else:
             self.confermation=1
             return 1
         
-        copies_availabel=self.status[13]
-
-        if copies_availabel>2:
+        self.available_copies=row1[13]
+        
+        if self.available_copies>2:
             pass
         else:
             self.confermation=2
             return 1
     
     def passportGuarante(self,passport_no,fullname,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,DATE_OF_RECEIVE,DATE_OF_RETURN,Book):
+        availabale_book=self.available_copies-1
         is_received="No"
         id=last_row("PASSPORT")
         conn=sqlite3.connect("Library Management System.db")
@@ -92,10 +99,12 @@ class BORROW_BOOK(SEARCH_BOOK):
         query="""INSERT INTO PASSPORT (id,passport_NO,FULL_NAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK,IS_RECEIVED)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """
         cursor.execute(query,(id,passport_no,fullname,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,is_received,))
+        cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,Book,))
         conn.commit()
         conn.close()
 
     def identityCardGuarantuy(self,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,Book):
+        availabale_book=self.available_copies-1
         id=last_row("IDENTITYCARD")
         is_received="No"
         conn=sqlite3.connect("Library Management System.db")
@@ -103,27 +112,34 @@ class BORROW_BOOK(SEARCH_BOOK):
         query="""INSERT INTO IDENTITYCARD (id,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,BOOK,IS_RECEIVED)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         """
+    
         cursor.execute(query,(id,ID_NUMBER,FULLNAME,NATIONALITY,DATE_OF_BIRTH,PLACE_OF_BIRTH,DATE_OF_ISSUE,DATE_OF_EXPIRY,GENDER,DATE_OF_RECEIVE,DATE_OF_RETURN,Book,is_received,))
+        cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,Book,))
         conn.commit()
         conn.close()
 
    
-class RETURN_BOOK:
+class RETURN_BOOK(BORROW_BOOK):
     def recive_book(self,book_name,id,guaranty):
         #id is the id number of Identity card or the Passport_no
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
+        BORROW_BOOKS=BORROW_BOOK()
+        BORROW_BOOKS.status_of_book(book_name)
+        availabale_book=BORROW_BOOKS.available_copies+1
         counter=0
         if guaranty=="IdentityCard":
             cursor.execute
             query=f"UPDATE IDENTITYCARD SET IS_RECEIVED='YES' WHERE ID_NUMBER= ? AND BOOK=?"
             cursor.execute(query,(id,book_name,))
+            cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,book_name,))
             conn.commit()
             conn.close()
             return 1
         if guaranty=="Passport":
             query=f"UPDATE PASSPORT SET IS_RECEIVED ='YES' WHERE Passport_NO =? AND BOOK= ?"
             cursor.execute(query,(id,book_name,))
+            cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,book_name,))
             conn.commit()
             conn.close()
             return 1
@@ -308,6 +324,33 @@ class REPORT:
         workbook.save("Patrons.xlsx")
         workbook.close()
 
+    def report_of_deleted_book(self):
+        conn=sqlite3.connect("Library Management System.db")
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM DELETED_BOOK")
+        books=cursor.fetchall()
+        cursor.execute("SELECT COUNT(*) FROM DELETED_BOOK")
+        max_row=cursor.fetchone()
+        last_row=max_row[0]
+        conn.close()
+        workbook=Workbook()
+        row_counter=0
+        worksheet=workbook.active
+        worksheet.append(
+            [
+                "ID","TITLE","CATEGORY","CLASSIFICATION","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION_INFORMATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","NOTES"
+            ]
+        )
+        for x in range(2,last_row+2): 
+            row=books[row_counter]
+            row_counter=row_counter+1
+            column_counter=0
+            for y in range(1,21):
+                worksheet.cell(row=x,column=y).value=row[column_counter]
+                column_counter=column_counter+1
+        workbook.save("Deleted Book.xlsx")
+        workbook.close()
+
 
 SHOW_BOOKS=SHOW_BOOK()
 SEARCH_BOOKS=SEARCH_BOOK()
@@ -320,3 +363,4 @@ SORT_BOOKS=SORT_BOOK()
 PARTONS=PATRON()
 CURRENT_PATRONS=CURRENT_PATRON()
 REPORTS=REPORT()
+REPORTS.report_of_deleted_book()
