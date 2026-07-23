@@ -373,7 +373,16 @@ class SEARCH_BOOK:
 
     def find_book(self):
         parameter=parameter_box.currentText()
+        if parameter!="ID" and  parameter!="TITLE" and parameter!="CLASS" and parameter!="AUTHOR" and parameter!="TRANSLATOR" and parameter!="SHELF" and parameter!="ROW" and parameter!="BINDING" and parameter!="ISBN" and parameter!="VOLUMES" and parameter!="VOLUME" and parameter!="TOTAL_COPIES" and parameter!="AVAILABLE_COPIES" and parameter!="PUBLICATION" and parameter!="PAGES" and parameter!="UNIT_PRICE" and parameter!="TOTAL_PRICE" and parameter!="YEAR" and parameter!="LANGUAGE" and parameter!="NOTES":
+            message.warning(
+                search_window,
+                "Search",
+                "Please Enter Valid Parameter"
+            )
+            return 1
+        parameter_box.clear()
         name=search_input_name.text()
+        search_input_name.clear()
         search_result_table=QTableWidget(show_result_table_of_search)
         show_result_table_of_search.resize(500,300)
         show_result_table_of_search.show()
@@ -381,7 +390,7 @@ class SEARCH_BOOK:
         search_result_table.setColumnCount(21)
         search_result_table.setRowCount(20)
         search_result_table.setHorizontalHeaderLabels(
-            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","NOTES"]
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","NOTES"]
         )
         search_table=backend.SEARCH_BOOKS.result(parameter,name)
         if search_table:
@@ -563,6 +572,14 @@ class ADD_BOOK:
         add_book_language_input.clear()
         notes=add_book_notes_input.text()
         add_book_notes_input.clear()
+        if title==""or title==""or author==""or isbn==""or category==""or volumes==""or volume==""or shelf==""or language==""or row=="" or binding=="":
+            message.warning(
+                add_book_window,
+                "Add Book",
+                "Please Enter Required Information"
+                
+            )
+            return 1
         backend.ADD_BOOKS.add(id,title,category,classification,author,transletor,shelf,row,binding,isbn,volumes,volume,total_copies,available_copies,publication,pages,unit_price,total_price,year,language,notes)
         SHOW_BOOK()
         add_book_window.close()
@@ -591,8 +608,8 @@ class DELETE_BOOK:
                 "Delete",
                 "This Book Does Not Exist"
             )
-        SHOW_BOOK()
         delete_window.close()
+        SHOW_BOOK()
     
 class BORROW_BOOK:
     def __init__(self):
@@ -612,6 +629,7 @@ class BORROW_BOOK:
   
     def status_of_book(self):
         title=borrow_title_input.text()
+        borrow_title_input.clear()
         backend.BORROW_BOOKS.status_of_book(title)
         if backend.BORROW_BOOKS.target_not_found=="This Book Does Not Exist":
             message.warning(
@@ -723,15 +741,25 @@ class BORROW_BOOK:
     
     def savePassportInfo():
         id=passport_Id_input.text()
+        passport_Id_input.clear()
         name=passport_name_input.text()
+        passport_name_input.clear()
         nationality=passport_nationality_input.text()
+        passport_nationality_input.clear()
         date_of_birth=passport_date_of_birth_input.text()
+        passport_date_of_birth_input.clear()
         place_of_birth=passport_place_of_birth_input.text()
+        passport_place_of_birth_input.clear()
         date_of_issue=passport_date_of_issue_input.text()
+        passport_date_of_issue_input.clear()
         date_of_expiry=passport_date_of_expiry_input.text()
+        passport_date_of_expiry_input.clear()
         date_of_receive=passport_date_of_receive_input.text()
+        passport_date_of_receive_input.clear()
         date_of_return=passport_date_of_return_input.text()
+        passport_date_of_return_input.clear()
         book=passport_book_input.text()
+        passport_book_input.clear()
         passport_window.close()
         set_information_to_passport_table=backend.BORROW_BOOKS.passportGuarante(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,date_of_receive,date_of_return,book)
         SHOW_BOOK()
@@ -816,16 +844,27 @@ class BORROW_BOOK:
 
     def saveIdentityCardInfo(self):
         id=identitycard_id_input.text()
+        identitycard_id_input.clear()
         name=identitycard_name_input.text()
+        identitycard_name_input.clear()
         nationality=identitycard_nationality_input.text()
+        identitycard_nationality_input.clear()
         date_of_birth=identitycard_date_of_birth_input.text()
+        identitycard_date_of_birth_input.clear()
         place_of_birth=identitycard_place_of_birth_input.text()
+        identitycard_place_of_birth_input.clear()
         date_of_issue=identitycard_date_of_issue_input.text()
+        identitycard_date_of_issue_input.clear()
         date_of_expiry=identitycard_date_of_expiry_input.text()
+        identitycard_date_of_expiry_input.clear()
         gender=identitycard_gender_input.text()
+        identitycard_gender_input.clear()
         date_of_receive=identitycard_date_of_receive_input.text()
+        identitycard_date_of_receive_input.clear()
         date_of_return=identitycard_date_of_return_input.text()
+        identitycard_date_of_return_input.clear()
         book=identitycard_book_input.text()
+        identitycard_book_input.clear()
         identityCard_window.close()
         set_information_to_identityCard_table=backend.BORROW_BOOKS.identityCardGuarantuy(id,name,nationality,date_of_birth,place_of_birth,date_of_issue,date_of_expiry,gender,date_of_receive,date_of_return,book)
         SHOW_BOOK()
@@ -915,11 +954,31 @@ class EDIT_BOOK:
         edit_confirmation_button.move(75,130)
 
     def implement_edition(self):
-        edit_name_of_book=edit_name_of_book_input.text()
+        name=edit_name_of_book_input.text()
+        edit_name_of_book_input.clear()
         parameter=edit_parameter_input.text()
+        edit_parameter_input.clear()
         isbn=edit_isbn_input.text()
+        edit_isbn_input.clear()
         new_value=edit_new_value_input.text()
-        backend.EDIT_BOOKS.edit_book(edit_name_of_book,parameter,isbn,new_value)
+        edit_new_value_input.clear()
+        if name=="" or parameter=="" or isbn=="" or new_value=="":
+            message.warning(
+                edit_window,
+                "Edit",
+                "Please Enter All Information"
+            )
+            return 1
+        backend.EDIT_BOOKS.edit_book(name,parameter,isbn,new_value)
+        status_of_book=backend.EDIT_BOOKS.status_of_book
+        if  status_of_book == []:
+            message.warning(
+                edit_window,
+                "Edit",
+                "This Book Does Not Exist"
+            )
+            return 1
+        
         edit_window.close()
         SHOW_BOOK()
 
@@ -946,7 +1005,23 @@ class SORTED_BOOK:
         sort_confirmation_butthon.setText("Sort")
     def implement_sort(self):
         sorted_parameter=sort_sorted_parameter_input.text()
+        sort_sorted_parameter_input.clear()
         method=sort_method_input.text()
+        sort_method_input.clear()
+        if sorted_parameter!="ID" and sorted_parameter!="TITLE" and sorted_parameter!="CATEGORY" and sorted_parameter!="CLASS" and sorted_parameter!="AUTHOR" and sorted_parameter!="TRANSLATOR" and sorted_parameter!="SHELF" and sorted_parameter!="ROW" and sorted_parameter!="BINDING" and sorted_parameter!="ISBN" and sorted_parameter!="VOLUMES" and sorted_parameter!="VOLUME" and sorted_parameter!="TOTAL_COPIES" and sorted_parameter!="AVAILABLE_COPIES" and sorted_parameter!="PUBLICATION" and sorted_parameter!="PAGES" and sorted_parameter!="UNIT_PRICE" and sorted_parameter!="TOTAL_PRICE" and sorted_parameter!="YEAR" and sorted_parameter!="LANGUAGE" and sorted_parameter!="NOTES":
+            message.warning(
+                sort_window,
+                'Sort',
+                "Please Enter The Valid Parameter"
+            )
+            return 1
+        if method!="ASCD"and method!="DESC":
+            message.warning(
+                sort_window,
+                "Sort",
+                "Please Enter The Valid Method"
+            )
+            return 1
         table_is_sorted=backend.SORT_BOOKS.sort_book(sorted_parameter,method)
         sorted_table_window.resize(1000,500)
         sorted_table_window.show()
@@ -954,7 +1029,7 @@ class SORTED_BOOK:
         sorted_table.setColumnCount(21)
         sorted_table.setRowCount(10000)
         sorted_table.setHorizontalHeaderLabels(
-            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT PRICE","TOTAL PRICE","YEAR","LANGUAGE","NOTES"]
+            ["ID","TITLE","CATEGORY","CLASS","AUTHOR","TRANSLATOR","SHELF","ROW","BINDING","ISBN","VOLUMES","VOLUME","TOTAL_COPIES","AVAILABLE_COPIES","PUBLICATION","PAGES","UNIT_PRICE","TOTAL_PRICE","YEAR","LANGUAGE","NOTES"]
         )
         for i,row in enumerate(table_is_sorted):
             for j,value in enumerate(row):
@@ -1014,12 +1089,19 @@ class PATRON:
 
     def saveInformationsOfPatrons(self):
         name=patron_name_input.text()
+        patron_name_input.clear()
         father_name=patron_father_name_input.text()
+        patron_father_name_input.clear()
         duty=patron_duty_input.text()
+        patron_duty_input.clear()
         university=patron_university_input.text()
+        patron_university_input.clear()
         semester=patron_semester_input.text()
+        patron_semester_input.clear()
         major=patron_major_input.text()
+        patron_major_input.clear()
         book=patron_book_input.text()
+        patron_book_input.clear()
         backend.PARTONS.parton(name,father_name,duty,university,semester,major,book)
         patron_window.close()
 
@@ -1059,15 +1141,18 @@ class CURRENT_PATRON:
         current_patron_book_label.setText("Name Of Book")
         current_patron_book_label.move(130,10)
         current_patron_book_label.show()
+
         current_patron_confirmation_button.setText("Receive Book")
         current_patron_confirmation_button.resize(100,30)
         current_patron_confirmation_button.move(75,70)
         current_patron_window.close()
     def delete_patron(self):
         name=current_patron_name_input.text()
+        current_patron_name_input.clear()
         book=current_patron_book_input.text()
+        current_patron_book_input.clear()
         backend.CURRENT_PATRONS.recieve_book(name,book)
-        current_patron_receive_book_window.close() 
+        current_patron_receive_book_window.close()
         
         
 
@@ -1178,22 +1263,22 @@ sort_sorted_parameter_box_options.addItems(
     "ID",
     "TITLE",
     "CATEGORY",
-    "CLASSIFICATION",
+    "CLASS",
     "AUTHOR",
     "TRANSLATOR",
     "SHELF",
     "ROW",
     "BINDING",
     "ISBN",
-    "NUMBER OF VOLUMES",
+    "VOLUMES",
     "VOLUME",
     "TOTAL_COPIES",
     "AVAILABLE_COPIES",
-    "PUBLICATION INFORMATION",
+    "PUBLICATION",
     "PAGES",
-    "UNIT PRICE",
-    "TOTAL PRICE",
-    "PUBLISHED YEAR",
+    "UNIT_PRICE",
+    "TOTAL_PRICE",
+    "YEAR",
     "LANGUAGE"
     ]
 )

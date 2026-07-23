@@ -179,13 +179,12 @@ class RETURN_BOOK(SEARCH_BOOK):
 class EDIT_BOOK(SEARCH_BOOK):
     def edit_book(self,name,parameter,isbn,new_value):
         SEARCH_BOOKS=SEARCH_BOOK()
-        status_of_book=SEARCH_BOOKS.result("TITLE",name)
+        self.status_of_book=SEARCH_BOOKS.result("TITLE",name)
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
         query=f"UPDATE BOOK SET {parameter} = ? WHERE TITLE = ?"
         query1=f"UPDATE BOOK SET {parameter} = ? WHERE ISBN = ?"
-        if status_of_book is None:
-            print("this book does not exist")
+        if self.status_of_book == []:
             return 1
         elif isbn=="":
             cursor.execute(query,(new_value,name,))
@@ -193,8 +192,6 @@ class EDIT_BOOK(SEARCH_BOOK):
             cursor.execute(query1,(new_value,isbn,))
         conn.commit()
         conn.close()
-
-
 class SORT_BOOK:
     def sort_book(self,sorted_parameter,method=""):
         conn=sqlite3.connect("Library Management System.db")
