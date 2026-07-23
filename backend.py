@@ -1,6 +1,19 @@
 import sqlite3
 from openpyxl import Workbook
 from datetime import datetime
+def find_row_in_table(table,id):
+    conn=sqlite3.connect("Library Management System.db")
+    cursor=conn.cursor()
+    if table=="PASSPORT":
+        cursor.execute(f"SELECT * FROM {table} WHERE Passport_NO=?",(id,))
+        found_row=cursor.fetchone()
+        conn.close()
+        return found_row
+    else:
+        cursor.execute(f"SELECT * FROM {table} WHERE ID_NUMBER=?",(id,))
+        found_row=cursor.fetchone()
+        conn.close()
+        return found_row
 def last_row(table):
     last=sqlite3.connect("Library Management System.db")
     cursor=last.cursor()
@@ -53,6 +66,11 @@ class DELETE_BOOK(SEARCH_BOOK):
     def delete(self,deleted_book):
         SEARCH_BOOKS=SEARCH_BOOK()
         target=SEARCH_BOOKS.result("TITLE",deleted_book)
+        self.target_not_found=""
+        if target==[]:
+            self.target_not_found="This Book Does Not Exist"
+            print(self.target_not_found)
+            return 1
         conn=sqlite3.connect("Library Management System.db")
         cursor=conn.cursor()
         query="DELETE FROM BOOK WHERE ID = ?"
@@ -75,6 +93,10 @@ class BORROW_BOOK(SEARCH_BOOK):
         #self.confermation=2 means we do not have enough book
         SEARCH_BOOKS=SEARCH_BOOK()
         self.status=SEARCH_BOOKS.result("TITLE",name_of_book)
+        self.target_not_found=""
+        if self.status==[]:
+            self.target_not_found="This Book Does Not Exist"
+            return 1
         row1=self.status[0]
         if self.status:
             pass
@@ -118,32 +140,42 @@ class BORROW_BOOK(SEARCH_BOOK):
         conn.commit()
         conn.close()
 
-   
-class RETURN_BOOK(BORROW_BOOK):
-    def recive_book(self,book_name,id,guaranty):
-        #id is the id number of Identity card or the Passport_no
-        conn=sqlite3.connect("Library Management System.db")
-        cursor=conn.cursor()
-        BORROW_BOOKS=BORROW_BOOK()
-        BORROW_BOOKS.status_of_book(book_name)
-        availabale_book=BORROW_BOOKS.available_copies+1
-        counter=0
-        if guaranty=="IdentityCard":
-            cursor.execute
-            query=f"UPDATE IDENTITYCARD SET IS_RECEIVED='YES' WHERE ID_NUMBER= ? AND BOOK=?"
-            cursor.execute(query,(id,book_name,))
-            cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,book_name,))
-            conn.commit()
-            conn.close()
+class RETURN_BOOK(SEARCH_BOOK):
+    def receive_book(self,name_of_book,parameter,id):
+        SEARCH_BOOKS=SEARCH_BOOK()
+        self.status_of_book=SEARCH_BOOKS.result("TITLE",name_of_book)
+        self.error_massage=""
+        if parameter!="PASSPORT" and parameter!="IDENTITYCARD":
+            self.error_massage="This Parameter Is Not Valid"
+            print(self.error_massage)
             return 1
-        if guaranty=="Passport":
-            query=f"UPDATE PASSPORT SET IS_RECEIVED ='YES' WHERE Passport_NO =? AND BOOK= ?"
-            cursor.execute(query,(id,book_name,))
-            cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES= ? WHERE TITLE=?",(availabale_book,book_name,))
-            conn.commit()
-            conn.close()
+        row=find_row_in_table(parameter,id)
+        if row==None:
+            self.error_massage="We Did Not Borrowed This Book To This Person"
+            print(self.error_massage)
             return 1
 
+        target_row=self.status_of_book[0]
+        available_book=target_row[13]+1
+        if parameter=="PASSPORT":
+            if row[11]=="No":
+                conn=sqlite3.connect("Library Management System.db")
+                cursor=conn.cursor()
+                cursor.execute("UPDATE PASSPORT SET IS_RECEIVED='YES' WHERE Passport_NO=?",(id,))
+                cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES=? WHERE TITLE=?",(available_book,name_of_book,))
+                conn.commit()
+            else:
+                print("this book is already taken")
+        if parameter=="IDENTITYCARD":
+            self.row=find_row_in_table(parameter,id)
+            if self.row[12]=="No":
+                conn=sqlite3.connect("Library Management System.db")
+                cursor=conn.cursor()
+                cursor.execute("UPDATE IDENTITYCARD SET IS_RECEIVED='YES' WHERE ID_NUMBER=?",(id,))
+                cursor.execute("UPDATE BOOK SET AVAILABLE_COPIES=? WHERE TITLE=?",(available_book,name_of_book,))
+                conn.commit()
+            else:
+                print("this book is already taken")
 class EDIT_BOOK(SEARCH_BOOK):
     def edit_book(self,name,parameter,isbn,new_value):
         SEARCH_BOOKS=SEARCH_BOOK()
@@ -363,4 +395,4 @@ SORT_BOOKS=SORT_BOOK()
 PARTONS=PATRON()
 CURRENT_PATRONS=CURRENT_PATRON()
 REPORTS=REPORT()
-REPORTS.report_of_deleted_book()
+
