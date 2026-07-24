@@ -1135,6 +1135,8 @@ QTableWidget{
             
         )
 
+
+
         return_name_of_book_input.setFixedSize(100,30)
         return_name_of_book_input.move(20,30)
         return_name_of_book_label.setText("Enter Name Of Book")
@@ -1155,6 +1157,16 @@ QTableWidget{
         return_confiration_button.setFixedSize(300,30)
         return_confiration_button.move(20,120)
         return_confiration_button.setText("Confirm Details And Add Book To Library")
+
+        show_return_parameter_box_options.setFixedSize(115,30)
+        show_return_parameter_box_options.move(220,30)
+        show_return_parameter_box_options.currentTextChanged.connect(update_show_return_parameter_box_options)
+        show_return_parameter_box_options.addItems(
+            [
+                "PASSPORT",
+                "IDENTITYCARD"
+            ]
+                )
     def add_book_to_library(self):
         name=return_name_of_book_input.text()
         parameter=return_parameter_input.text()
@@ -1179,15 +1191,6 @@ QTableWidget{
                 "This Parameter Is Not Valid"
             )
         return_window.close()
-        show_return_parameter_box_options.setFixedSize(115,30)
-        show_return_parameter_box_options.move(220,30)
-        show_return_parameter_box_options.currentTextChanged.connect(update_show_return_parameter_box_options)
-        show_return_parameter_box_options.addItems(
-            [
-                "PASSPORT",
-                "IDENTITYCARD"
-            ]
-                )
         SHOW_BOOK()
 
 class EDIT_BOOK:
@@ -1640,6 +1643,97 @@ QTableWidget{
         """
             
         )
+        report_borrowed_book.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
+        report_potrons.setStyleSheet("""
+        QWidget{
+            background-color:#F4F6F9;
+        }
+        
+        QPushButton{
+            background-color:#2E86DE;
+            color:white;
+            border-radius:8px;
+            padding:6px;
+        }
+        
+        QPushButton:hover{
+            background-color:#1B4F72;
+        }
+        
+        QLineEdit{
+            background:white;
+            border:1px solid gray;
+            border-radius:5px;
+            padding:4px;
+        }
+        
+        QTableWidget{
+            background:white;
+        }
+        
+                """
+                    
+                )
+        report_deleted_book.setStyleSheet("""
+QWidget{
+        background-color:#F4F6F9;
+        }
+                
+QPushButton{
+        background-color:#2E86DE;
+        color:white;
+        border-radius:8px;
+        padding:6px;
+    }
+                
+        QPushButton:hover{
+             background-color:#1B4F72;
+            }
+                
+        QLineEdit{
+            background:white;
+            border:1px solid gray;
+            border-radius:5px;
+            padding:4px;
+        }
+                
+        QTableWidget{
+            background:white;
+            }
+                
+            """
+                            
+            )
+        
         report_borrowed_book.setText("Borrowed Book")
         report_borrowed_book.setFixedSize(100,30)
         report_borrowed_book.move(50,70)
