@@ -349,6 +349,36 @@ class SEARCH_BOOK:
     def __init__(self):
         search_window.resize(450,150) 
         search_window.show()
+        search_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         search__parameter_label.setText("PARMETER")
         search__parameter_label.show()
         search__parameter_label.move(60,0)
@@ -404,10 +434,41 @@ class ADD_BOOK:
     def __init__(self):
         add_book_window.resize(520,400)
         add_book_window.show()
+        add_book_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         
         #TITLE ADDED
         add_book_title_input.resize(150,30)
         add_book_title_input.move(20,20)
+        add_book_title_input.returnPressed.connect(add_book_category_input.setFocus)
         add_book_title_label.setText("TITLE (REQUIRED)")
         add_book_title_label.move(20,0)
         add_book_title_label.show()
@@ -415,36 +476,42 @@ class ADD_BOOK:
         add_book_category_input.resize(150,30)
         add_book_category_input.move(20,70)
         add_book_category_label.setText("CATEGORY(REQUIRED)")
+        add_book_category_input.returnPressed.connect(add_book_classification_input.setFocus)
         add_book_category_label.move(20,50)
         add_book_category_label.show()
         #CLASSIFACATION ADDED
         add_book_classification_input.resize(150,30)
         add_book_classification_input.move(20,120)
         add_book_classification_label.setText("CLASSIFICATION")
+        add_book_classification_input.returnPressed.connect(add_book_author_input.setFocus)
         add_book_classification_label.move(20,100)
         add_book_classification_label.show()
         #AUTHOR ADDED
         add_book_author_input.resize(150,30)
         add_book_author_input.move(20,170)
         add_book_author_label.setText("AUTHOR(REQUIRED)")
+        add_book_author_input.returnPressed.connect(add_book_available_copies_input.setFocus)
         add_book_author_label.move(20,150)
         add_book_author_label.show()
         #available_copies
         add_book_available_copies_input.resize(150,30)
         add_book_available_copies_input.move(20,220)
         add_book_available_copies_label.setText("AVAILABLE_COPIES")
+        add_book_available_copies_input.returnPressed.connect(add_book_publication_input.setFocus)
         add_book_available_copies_label.move(20,200)
         add_book_available_copies_label.show()
         #PUBLICATION INFORMATION
         add_book_publication_input.resize(150,30)
         add_book_publication_input.move(20,270)
         add_book_publication_label.setText("PUBLICATION")
+        add_book_publication_input.returnPressed.connect(add_book_pages_input.setFocus)
         add_book_publication_label.move(20,250)
         add_book_publication_label.show()
         #PAGES ADDED
         add_book_pages_input.resize(150,30)
         add_book_pages_input.move(20,320)
         add_book_pages_label.setText("PAGES")
+        add_book_pages_input.returnPressed.connect(add_book_transletor_input.setFocus)
         add_book_pages_label.move(20,300)
         add_book_pages_label.show()
         #**************************************************
@@ -452,42 +519,49 @@ class ADD_BOOK:
         add_book_transletor_input.resize(150,30)
         add_book_transletor_input.move(190,20)
         add_book_transletor_label.setText("TRANSLETOR")
+        add_book_transletor_input.returnPressed.connect(add_book_shelf_input.setFocus)
         add_book_transletor_label.move(190,0)
         add_book_transletor_label.show()
         #SHELF ADDED
         add_book_shelf_input.resize(150,30)
         add_book_shelf_input.move(190,70)
         add_book_shelf_label.setText("SHELF(REQUIRED)")
+        add_book_shelf_input.returnPressed.connect(add_book_row_input.setFocus)
         add_book_shelf_label.move(190,50)
         add_book_shelf_label.show()
         #ROW ADDED
         add_book_row_input.resize(150,30)
         add_book_row_input.move(190,120)
         add_book_row_label.setText("ROW(REQUIRED)")
+        add_book_row_input.returnPressed.connect(add_book_binding_input.setFocus)
         add_book_row_label.move(190,100)
         add_book_row_label.show()
         #BINDING ADDED
         add_book_binding_input.resize(150,30)
         add_book_binding_input.move(190,170)
         add_book_binding_label.setText("BINDING(REQUIRED)")
+        add_book_binding_input.returnPressed.connect(add_book_unit_price_input.setFocus)
         add_book_binding_label.move(190,150)
         add_book_binding_label.show()
         #UNIT PRICE ADDED
         add_book_unit_price_input.resize(150,30)
         add_book_unit_price_input.move(190,220)
         add_book_unit_price_label.setText("UNIT PRICE")
+        add_book_unit_price_input.returnPressed.connect(add_book_total_price_input.setFocus)
         add_book_unit_price_label.move(190,200)
         add_book_unit_price_label.show()
         #TOTAL PRICE
         add_book_total_price_input.resize(150,30)
         add_book_total_price_input.move(190,270)
         add_book_total_price_label.setText("TOTAL PRICE")
+        add_book_total_price_input.returnPressed.connect(add_book_year_input.setFocus)
         add_book_total_price_label.move(190,250)
         add_book_total_price_label.show()
         #PUBLISHED YEAR ADDED
         add_book_year_input.resize(150,30)
         add_book_year_input.move(190,320)
         add_book_year_label.setText("PUBLISHED YEAR")
+        add_book_year_input.returnPressed.connect(add_book_ISBN_input.setFocus)
         add_book_year_label.move(190,300)
         add_book_year_label.show()
 
@@ -496,30 +570,35 @@ class ADD_BOOK:
         add_book_ISBN_input.resize(150,30)
         add_book_ISBN_input.move(350,20)
         add_book_ISBN_label.setText("ISBN(REQUIRED)")
+        add_book_ISBN_input.returnPressed.connect(add_book_volumes_input.setFocus)
         add_book_ISBN_label.move(350,0)
         add_book_ISBN_label.show()
         #VOLUMES ADDED
         add_book_volumes_input.resize(150,30)
         add_book_volumes_input.move(350,70)
         add_book_volumes_label.setText("VOLUMES (REQUIRED)")
+        add_book_volumes_input.returnPressed.connect(add_book_volume_input.setFocus)
         add_book_volumes_label.move(350,50)
         add_book_volumes_label.show()  
         #VOLUME ADDED   
         add_book_volume_input.resize(150,30)
         add_book_volume_input.move(350,120)
         add_book_volume_label.setText("VOLUME (REQUIRED)")
+        add_book_volume_input.returnPressed.connect(add_book_total_copies_input.setFocus)
         add_book_volume_label.move(350,100)
         add_book_volume_label.show()
         #total_copies
         add_book_total_copies_input.resize(150,30)
         add_book_total_copies_input.move(350,170)
         add_book_total_copies_label.setText("TOTAL_COPIES")
+        add_book_total_copies_input.returnPressed.connect(add_book_language_input.setFocus)
         add_book_total_copies_label.move(350,150)
         add_book_total_copies_label.show()
         #LANGUAGE ADDED
         add_book_language_input.resize(150,30)
         add_book_language_input.move(350,220)
         add_book_language_label.setText("LANGUAGE(REQUIRED)")
+        add_book_language_input.returnPressed.connect(add_book_notes_input.setFocus)
         add_book_language_label.move(350,200)
         add_book_language_label.show()
         #NOTES
@@ -588,6 +667,36 @@ class DELETE_BOOK:
     def __init__(self):
         delete_window.resize(200,100)
         delete_window.show()
+        delete_window.setStyleSheet("""
+QWidget{
+background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         delete_book_input.resize(100,30)
         delete_book_input.move(50,20)
         delete_book_label.setText("Enter Title")
@@ -597,17 +706,33 @@ class DELETE_BOOK:
         delete_button.move(50,55)
         delete_button.setText("Delete")
     
-    def delete():
+    def delete():      
         name_of_book=delete_book_input.text()
-        delete_book_input.clear()
-        backend.DELETE_BOOKS.delete(name_of_book)
-        target_not_found=backend.DELETE_BOOKS.target_not_found
-        if target_not_found=="This Book Does Not Exist":
+        if name_of_book=="":
             message.warning(
                 delete_window,
                 "Delete",
-                "This Book Does Not Exist"
+                "Please Enter The Name Of Book"
             )
+            return 1
+        delete_book_input.clear()
+        answer=message.warning(
+            delete_window,
+            "Delete",
+            "Are You Sure That You Want To Delete Book",
+            QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No
+        )
+        if answer==QMessageBox.StandardButton.Yes:
+            backend.DELETE_BOOKS.delete(name_of_book)
+            target_not_found=backend.DELETE_BOOKS.target_not_found
+            if target_not_found=="This Book Does Not Exist":
+                message.warning(
+                    delete_window,
+                    "Delete",
+                    "This Book Does Not Exist"
+                )
+        else:
+            return 1
         delete_window.close()
         SHOW_BOOK()
     
@@ -615,6 +740,36 @@ class BORROW_BOOK:
     def __init__(self):
         borrow_window.resize(250,130)
         borrow_window.show()
+        borrow_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         borrow_title_input.resize(100,30)
         borrow_title_input.move(75,30)
         borrow_title_label.setText("Please Enter Title")
@@ -628,6 +783,7 @@ class BORROW_BOOK:
 
   
     def status_of_book(self):
+
         title=borrow_title_input.text()
         borrow_title_input.clear()
         backend.BORROW_BOOKS.status_of_book(title)
@@ -873,6 +1029,36 @@ class RETURN_BOOK:
     def receive_book(self):
         return_window.resize(340,160)
         return_window.show()
+        return_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
 
         return_name_of_book_input.resize(100,30)
         return_name_of_book_input.move(20,30)
@@ -924,7 +1110,36 @@ class EDIT_BOOK:
     def edit_book(self):
         edit_window.resize(260,190)
         edit_window.show()
+        edit_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
 
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         edit_name_of_book_input.resize(100,30)
         edit_name_of_book_input.move(20,30)
         edit_name_of_book_lable.setText("Enter Name Of Book")
@@ -987,7 +1202,36 @@ class SORTED_BOOK:
     def sort_book(self):
         sort_window.resize(270,130)
         sort_window.show()
+        sort_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
 
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         sort_sorted_parameter_input.resize(100,30)
         sort_sorted_parameter_input.move(20,30)
         sort_sorted_parameter_label.setText("Sorted Parametr")
@@ -1041,7 +1285,36 @@ class PATRON:
     def patron(self):
         patron_window.resize(250,260)
         patron_window.show()
+        patron_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
 
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         patron_name_input.resize(100,30)
         patron_name_input.move(20,30)
         patron_name_label.setText("Name")
@@ -1109,6 +1382,36 @@ class CURRENT_PATRON:
     def currentPatron(self):
         current_patron_window.resize(740,300)
         current_patron_window.show()
+        current_patron_window.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
+
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         show_current_patron_receive_book_window.setText("Receive Book")
         show_current_patron_receive_book_window.resize(750,30)
         show_current_patron_receive_book_window.move(0,260)
@@ -1129,7 +1432,6 @@ class CURRENT_PATRON:
     def receive_book(self):
         current_patron_receive_book_window.resize(250,110)
         current_patron_receive_book_window.show()
-
         current_patron_name_input.resize(100,30)
         current_patron_name_input.move(20,30)
         current_patron_name_label.setText("Name Of Potron")
@@ -1163,7 +1465,36 @@ class REPORT:
         report_book.setText("Book")
         report_book.resize(100,30)
         report_book.move(50,30)
+        report_book.setStyleSheet("""
+QWidget{
+    background-color:#F4F6F9;
+}
 
+QPushButton{
+    background-color:#2E86DE;
+    color:white;
+    border-radius:8px;
+    padding:6px;
+}
+
+QPushButton:hover{
+    background-color:#1B4F72;
+}
+
+QLineEdit{
+    background:white;
+    border:1px solid gray;
+    border-radius:5px;
+    padding:4px;
+}
+
+QTableWidget{
+    background:white;
+}
+
+        """
+            
+        )
         report_borrowed_book.setText("Borrowed Book")
         report_borrowed_book.resize(100,30)
         report_borrowed_book.move(50,70)
