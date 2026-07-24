@@ -5,11 +5,11 @@ from PyQt6.QtWidgets import  QApplication,QLabel,QMessageBox,QLineEdit,QPushButt
 #CREATING OBJECTS
 app=QApplication(sys.argv)
 window=QWidget()
-window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+window.setWindowIcon(QIcon("Icons/Library.ico"))
 window.setWindowTitle("Library Management System")
 table=QTableWidget(window)
 search_window=QWidget()
-search_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+search_window.setWindowIcon(QIcon("Icons/Library.ico"))
 parameter_box=QComboBox(search_window)
 message=QMessageBox()
 #SEARCH CLASS OBJECTS
@@ -24,7 +24,7 @@ search__name_label=QLabel(search_window)
 search_input_parmeter=QLineEdit(search_window)
 search_input_name=QLineEdit(search_window)
 show_result_table_of_search=QWidget()
-show_result_table_of_search.setWindowIcon(QIcon("icons/Library Icon.ico"))
+show_result_table_of_search.setWindowIcon(QIcon("Icons/Library.ico"))
 #ADD CLASS OBJECTS
 
 show_add_button_window=QPushButton(window)
@@ -32,7 +32,7 @@ show_add_button_window.setFixedSize(100,55)
 show_add_button_window.move(110,650)
 show_add_button_window.setText("Add Book")
 add_book_window=QWidget()
-add_book_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+add_book_window.setWindowIcon(QIcon("Icons/Library.ico"))
 add_book_window.setWindowTitle("Add Book")
 add_button=QPushButton(add_book_window)
 add_button.setFixedSize(485,40)
@@ -103,7 +103,7 @@ add_book_notes_label=QLabel(add_book_window)
 show_delete_window=QPushButton(window)
 show_delete_window.setText("Delete Book")
 delete_window=QWidget()
-delete_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+delete_window.setWindowIcon(QIcon("Icons/Library.ico"))
 delete_window.setWindowTitle("Delete Book")
 delete_button=QPushButton(delete_window)
 show_delete_window.setFixedSize(100,55)
@@ -117,19 +117,19 @@ show_borrow_window.setFixedSize(100,55)
 show_borrow_window.move(330,650)
 show_borrow_window.setText("Borrow Book")
 borrow_window=QWidget()
-borrow_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+borrow_window.setWindowIcon(QIcon("Icons/Library.ico"))
 borrow_window.setWindowTitle("Borrow Book")
 borrow_title_input=QLineEdit(borrow_window)
 borrow_title_label=QLabel(borrow_window)
 guaranty_button=QPushButton(borrow_window)
 guarantyOption=QWidget()
-guarantyOption.setWindowIcon(QIcon("icons/Library Icon.ico"))
+guarantyOption.setWindowIcon(QIcon("Icons/Library.ico"))
 passport_button=QPushButton(guarantyOption)
 identityCard_button=QPushButton(guarantyOption)
 
 #passport objects
 passport_window=QWidget()
-passport_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+passport_window.setWindowIcon(QIcon("Icons/Library.ico"))
 passport_window.setWindowTitle("Passport Information")
 passport_Id_input=QLineEdit(passport_window)
 passport_Id_label=QLabel(passport_window)
@@ -165,7 +165,7 @@ passport_confirmation_key=QPushButton(passport_window)
 
 #identitycard
 identityCard_window=QWidget()
-identityCard_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+identityCard_window.setWindowIcon(QIcon("Icons/Library.ico"))
 identityCard_window.setWindowTitle("Identitycard Information")
 identitycard_id_input=QLineEdit(identityCard_window)
 identitycard_id_label=QLabel(identityCard_window)
@@ -208,7 +208,7 @@ show_return_window.setFixedSize(100,55)
 show_return_window.move(440,650)
 show_return_window.setText("Return Book")
 return_window=QWidget()
-return_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+return_window.setWindowIcon(QIcon("Icons/Library.ico"))
 return_window.setWindowTitle("Return Book")
 show_return_parameter_box_options=QComboBox(return_window)
 return_name_of_book_input=QLineEdit(return_window)
@@ -228,7 +228,7 @@ show_edit_window.setFixedSize(100,55)
 show_edit_window.move(550,650)
 
 edit_window=QWidget()
-edit_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+edit_window.setWindowIcon(QIcon("Icons/Library.ico"))
 edit_window.setWindowTitle("Edit Book")
 edit_box_parameter_options=QComboBox(edit_window)
 edit_name_of_book_input=QLineEdit(edit_window)
@@ -251,7 +251,7 @@ show_sort_window.setText("Sort Books")
 show_sort_window.setFixedSize(100,55)
 show_sort_window.move(660,650)
 sort_window=QWidget()
-sort_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+sort_window.setWindowIcon(QIcon("Icons/Library.ico"))
 sort_window.setWindowTitle("Sort Books")
 sort_sorted_parameter_box_options=QComboBox(sort_window)
 sort_sorted_parameter_box_options.setFixedSize(115,30)
@@ -265,7 +265,7 @@ sort_method_input=QLineEdit(sort_window)
 sort_method_label=QLabel(sort_window)
 sort_confirmation_butthon=QPushButton(sort_window)
 sorted_table_window=QWidget()
-sorted_table_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+sorted_table_window.setWindowIcon(QIcon("Icons/Library.ico"))
 sorted_table=QTableWidget(sorted_table_window)
 
 #PATRON CALSS OBJECTS
@@ -274,7 +274,7 @@ show_patron_window.setText("PATRON")
 show_patron_window.setFixedSize(100,55)
 show_patron_window.move(770,650)
 patron_window=QWidget()
-patron_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+patron_window.setWindowIcon(QIcon("Icons/Library.ico"))
 patron_window.setWindowTitle("Patron")
 patron_name_input=QLineEdit(patron_window)
 patron_name_label=QLabel(patron_window)
@@ -298,13 +298,13 @@ show_current_parton_button.setText("Current Patrons")
 show_current_parton_button.setFixedSize(100,55)
 show_current_parton_button.move(880,650)
 current_patron_window=QWidget()
-current_patron_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+current_patron_window.setWindowIcon(QIcon("Icons/Library.ico"))
 current_patron_window.setWindowTitle("Current Patron")
 current_patrons=QTableWidget(current_patron_window)
 
 show_current_patron_receive_book_window=QPushButton(current_patron_window)
 current_patron_receive_book_window=QWidget()
-current_patron_receive_book_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+current_patron_receive_book_window.setWindowIcon(QIcon("Icons/Library.ico"))
 current_patron_name_input=QLineEdit(current_patron_receive_book_window)
 current_patron_name_label=QLabel(current_patron_receive_book_window)
 
@@ -319,7 +319,7 @@ show_report_window.setText("Report")
 show_report_window.setFixedSize(100,55)
 show_report_window.move(990,650)
 report_window=QWidget()
-report_window.setWindowIcon(QIcon("icons/Library Icon.ico"))
+report_window.setWindowIcon(QIcon("Icons/Library.ico"))
 report_window.setWindowTitle("Report")
 report_book=QPushButton(report_window)
 report_borrowed_book=QPushButton(report_window)
@@ -416,6 +416,35 @@ QTableWidget{
         search_button.setText("Search")
         search_button.move(170,70)
         search_button.setFixedSize(110,40)
+
+        parameter_box.addItems([
+    "ID",
+    "TITLE",
+    "CATEGORY",
+    "CLASSIFICATION",
+    "AUTHOR",
+    "TRANSLATOR",
+    "SHELF",
+    "ROW",
+    "BINDING",
+    "ISBN",
+    "NUMBER OF VOLUMES",
+    "VOLUME",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
+    "PUBLICATION INFORMATION",
+    "PAGES",
+    "UNIT PRICE",
+    "TOTAL PRICE",
+    "PUBLISHED YEAR",
+    "LANGUAGE",
+    "NOTES"
+    
+])
+
+        parameter_box.setFixedSize(165,30)
+        parameter_box.move(20,20)
+        parameter_box.currentTextChanged.connect(update_search_box)
         app.exec()
 
 
@@ -1150,6 +1179,15 @@ QTableWidget{
                 "This Parameter Is Not Valid"
             )
         return_window.close()
+        show_return_parameter_box_options.setFixedSize(115,30)
+        show_return_parameter_box_options.move(220,30)
+        show_return_parameter_box_options.currentTextChanged.connect(update_show_return_parameter_box_options)
+        show_return_parameter_box_options.addItems(
+            [
+                "PASSPORT",
+                "IDENTITYCARD"
+            ]
+                )
         SHOW_BOOK()
 
 class EDIT_BOOK:
@@ -1213,6 +1251,34 @@ QTableWidget{
         edit_confirmation_button.setFixedSize(100,40)
         edit_confirmation_button.setText("Confirm Detail")
         edit_confirmation_button.move(75,130)
+
+        edit_box_parameter_options.setFixedSize(115,30)
+        edit_box_parameter_options.move(140,30)
+        edit_box_parameter_options.currentTextChanged.connect(update_edit_box_parameter_options)
+        edit_box_parameter_options.addItems(
+        [
+    "ID",
+    "TITLE",
+    "CATEGORY",
+    "CLASSIFICATION",
+    "AUTHOR",
+    "TRANSLATOR",
+    "SHELF",
+    "ROW",
+    "BINDING",
+    "ISBN",
+    "NUMBER OF VOLUMES",
+    "VOLUME",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
+    "PUBLICATION INFORMATION",
+    "PAGES",
+    "UNIT PRICE",
+    "TOTAL PRICE",
+    "PUBLISHED YEAR",
+    "LANGUAGE"
+    ]
+        )
 
     def implement_edition(self):
         name=edit_name_of_book_input.text()
@@ -1293,6 +1359,39 @@ QTableWidget{
         sort_confirmation_butthon.setFixedSize(100,40)
         sort_confirmation_butthon.move(75,70)
         sort_confirmation_butthon.setText("Sort")
+        sort_sorted_parameter_box_options.addItems(
+    [
+    "ID",
+    "TITLE",
+    "CATEGORY",
+    "CLASS",
+    "AUTHOR",
+    "TRANSLATOR",
+    "SHELF",
+    "ROW",
+    "BINDING",
+    "ISBN",
+    "VOLUMES",
+    "VOLUME",
+    "TOTAL_COPIES",
+    "AVAILABLE_COPIES",
+    "PUBLICATION",
+    "PAGES",
+    "UNIT_PRICE",
+    "TOTAL_PRICE",
+    "YEAR",
+    "LANGUAGE"
+         ]
+                )
+
+        sort_sorted_parameter_box_options.currentTextChanged.connect(update_sort_sorted_parameter_box_options)
+        sort_method_box_options.addItems(
+             [
+        "ASCD",
+        "DESC"
+                ]
+                    )
+        sort_method_box_options.currentTextChanged.connect(update_sort_method_box_options)
     def implement_sort(self):
         sorted_parameter=sort_sorted_parameter_input.text()
         sort_sorted_parameter_input.clear()
@@ -1607,103 +1706,10 @@ report_book.clicked.connect(REPORT.report_of_all_book)
 report_borrowed_book.clicked.connect(REPORT.report_of_borrowed_book)
 report_potrons.clicked.connect(REPORT.report_of_patron)
 report_deleted_book.clicked.connect(REPORT.report_deleted_book)
-parameter_box.addItems([
-    "ID",
-    "TITLE",
-    "CATEGORY",
-    "CLASSIFICATION",
-    "AUTHOR",
-    "TRANSLATOR",
-    "SHELF",
-    "ROW",
-    "BINDING",
-    "ISBN",
-    "NUMBER OF VOLUMES",
-    "VOLUME",
-    "TOTAL_COPIES",
-    "AVAILABLE_COPIES",
-    "PUBLICATION INFORMATION",
-    "PAGES",
-    "UNIT PRICE",
-    "TOTAL PRICE",
-    "PUBLISHED YEAR",
-    "LANGUAGE",
-    "NOTES"
-    
-])
-parameter_box.currentTextChanged.connect(update_search_box)
-parameter_box.setFixedSize(165,30)
-parameter_box.move(20,20)
 
-sort_sorted_parameter_box_options.addItems(
-    [
-    "ID",
-    "TITLE",
-    "CATEGORY",
-    "CLASS",
-    "AUTHOR",
-    "TRANSLATOR",
-    "SHELF",
-    "ROW",
-    "BINDING",
-    "ISBN",
-    "VOLUMES",
-    "VOLUME",
-    "TOTAL_COPIES",
-    "AVAILABLE_COPIES",
-    "PUBLICATION",
-    "PAGES",
-    "UNIT_PRICE",
-    "TOTAL_PRICE",
-    "YEAR",
-    "LANGUAGE"
-    ]
-)
 
-sort_sorted_parameter_box_options.currentTextChanged.connect(update_sort_sorted_parameter_box_options)
-sort_method_box_options.addItems(
-    [
-        "ASCD",
-        "DESC"
-    ]
-)
-sort_method_box_options.currentTextChanged.connect(update_sort_method_box_options)
-edit_box_parameter_options.setFixedSize(115,30)
-edit_box_parameter_options.move(140,30)
-edit_box_parameter_options.currentTextChanged.connect(update_edit_box_parameter_options)
-edit_box_parameter_options.addItems(
-    [
-    "ID",
-    "TITLE",
-    "CATEGORY",
-    "CLASSIFICATION",
-    "AUTHOR",
-    "TRANSLATOR",
-    "SHELF",
-    "ROW",
-    "BINDING",
-    "ISBN",
-    "NUMBER OF VOLUMES",
-    "VOLUME",
-    "TOTAL_COPIES",
-    "AVAILABLE_COPIES",
-    "PUBLICATION INFORMATION",
-    "PAGES",
-    "UNIT PRICE",
-    "TOTAL PRICE",
-    "PUBLISHED YEAR",
-    "LANGUAGE"
-    ]
-)
-show_return_parameter_box_options.setFixedSize(115,30)
-show_return_parameter_box_options.move(220,30)
-show_return_parameter_box_options.currentTextChanged.connect(update_show_return_parameter_box_options)
-show_return_parameter_box_options.addItems(
-    [
-        "PASSPORT",
-        "IDENTITYCARD"
-    ]
-)
+
+
 SHOW_BOOKS=SHOW_BOOK()
 
 
